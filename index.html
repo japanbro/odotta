@@ -213,6 +213,14 @@
   .pofficial2{display:inline-block;margin:2px 0 16px;color:#8a94a0;font-size:.78rem;font-weight:700;text-decoration:underline;filter:grayscale(1)}
   .lcorner{position:absolute;top:calc(9px + env(safe-area-inset-top));left:13px;max-width:64%;text-align:left;font-size:.6rem;font-weight:700;line-height:1.5;letter-spacing:.03em;opacity:.8;z-index:2}
   .morebtn{display:block;width:calc(100% - 24px);margin:14px 12px 20px;padding:14px;text-align:center;background:#fff;border:1px solid var(--line2);border-radius:12px;font-weight:800;font-size:.9rem;color:var(--accent);cursor:pointer}
+  .imgprev{position:fixed;inset:0;z-index:80;display:none}
+  .imgprev.open{display:block}
+  .imgprev-bg{position:absolute;inset:0;background:rgba(0,0,0,.72)}
+  .imgprev-box{position:absolute;inset:0;max-width:var(--max);margin:0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:12px}
+  .imgprev-note{color:#fff;font-size:.85rem;font-weight:700}
+  .imgprev-box img{max-width:100%;max-height:70vh;border-radius:12px;box-shadow:0 10px 34px rgba(0,0,0,.45)}
+  .imgprev-acts{display:flex;gap:8px}
+  .shprev{background:#f4f8fb;border:1px solid var(--line2);border-radius:10px;padding:11px 12px;font-size:.8rem;white-space:pre-wrap;color:#3d4d5c;line-height:1.65;margin-bottom:12px;max-height:38vh;overflow:auto}
 </style>
 </head>
 <body>
@@ -244,8 +252,9 @@
     <div class="sheethead"><b>一緒に行く人に送る</b><button class="x" onclick="closeShare()">✕</button></div>
     <div style="padding:14px">
       <div id="shName" class="shname"></div>
+      <div class="shprev" id="shPrev"></div>
       <div class="shbtns">
-        <button class="shbtn insta" onclick="saveImage()">お誘い画像を見てみる</button>
+        <button class="shbtn insta" onclick="saveImage()">insta・tiktok用画像を見てみる</button>
         <button class="shbtn line" onclick="lineInvite()">LINEで送る</button>
         <button class="shbtn" onclick="copyInvite()">コピー</button>
       </div>
@@ -271,6 +280,17 @@
 <div class="page" id="page">
   <div class="phead"><button class="pback" onclick="closePage()">←</button><div class="ptitle" id="pTitle"></div></div>
   <div class="pbody" id="pBody"></div>
+</div>
+<div class="imgprev" id="imgprev">
+  <div class="imgprev-bg" onclick="closeImgPrev()"></div>
+  <div class="imgprev-box">
+    <div class="imgprev-note">Instagram・TikTokに投稿しよう！長押しで画像を保存できます</div>
+    <img id="imgprevImg" alt="お誘い画像">
+    <div class="imgprev-acts">
+      <button class="shbtn line" onclick="shareImgFile()">端末で共有・保存</button>
+      <button class="shbtn" onclick="closeImgPrev()">閉じる</button>
+    </div>
+  </div>
 </div>
 <div class="toast" id="toast"></div>
 <script>
@@ -339,6 +359,7 @@ function statusOf(e){
 const ST={live:{t:"開催中",c:"live"},week:{t:"今週",c:"week"},soon:{t:"開催予定",c:"soon"},tbd:{t:"調査中",c:"tbd"},cxl:{t:"中止",c:"cxl"}};
 let VISIBLE=DATA.filter(e=>statusOf(e)!=="end");
 function rebuild(){VISIBLE=DATA.filter(e=>statusOf(e)!=="end");}
+function assignIds(){const pad=x=>String(x).padStart(7,"0");let k=2;DATA.forEach(e=>{e.id=(e.name==="下北沢盆踊り")?pad(1):pad(k++);});}
 const KEY="odottar_kininaru_v1";
 let LIKED={};try{LIKED=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
 const REMOTE={};
@@ -455,12 +476,13 @@ function addLike(name,btn){
   saveLikes();render();
 }
 let curShare=null;
-const inviteURL=e=>APP_URL?APP_URL+"#e/"+encodeURIComponent(e.name):e.site;
+const inviteURL=e=>APP_URL?APP_URL+"#e/"+(e.id||encodeURIComponent(e.name)):e.site;
 const dateSlash=e=>{if(!e.start)return"日程調査中";const f=x=>`${x.getFullYear()}/${String(x.getMonth()+1).padStart(2,"0")}/${String(x.getDate()).padStart(2,"0")}(${WD[x.getDay()]})`;return (e.end&&e.end!==e.start)?f(d(e.start))+"～"+f(d(e.end)):f(d(e.start));};
-const inviteText=e=>`【盆踊りのお誘い】Shall we BONdance?\n${e.kai||""}${e.name}\n${dateSlash(e)}\n\nおどったー｜日本最大級の盆踊り情報サイト\n${inviteURL(e)}`;
+const inviteText=e=>`【盆踊りのお誘い】\nShall we BONdance?\n${e.kai||""}${e.name}\n${dateSlash(e)}\n\nおどったー｜日本最大級の盆踊り情報サイト\n${inviteURL(e)}`;
 const curShareE=()=>VISIBLE.find(x=>x.name===curShare);
 function shareSheet(name){curShare=name;const e=VISIBLE.find(x=>x.name===name);if(!e)return;
   document.getElementById("shName").textContent=`${e.name}｜${longDate(e)}`;
+  document.getElementById("shPrev").textContent=inviteText(e);
   
   document.getElementById("share").classList.add("open");}
 function closeShare(){document.getElementById("share").classList.remove("open");}
@@ -509,45 +531,13 @@ function drawCard(e){
 }
 async function saveImage(){
   const e=curShareE();if(!e)return;const c=drawCard(e);
-  c.toBlob(async(blob)=>{
-    if(!blob){toast("画像の生成に失敗しました");return;}
-    const file=new File([blob],(e.name||"odottar")+".png",{type:"image/png"});
-    if(navigator.canShare&&navigator.canShare({files:[file]})){
-      try{await navigator.share({files:[file],text:inviteText(e)});return;}catch(err){}
-    }
-    const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=(e.name||"odottar")+".png";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
-    toast("画像を保存しました。Instagramに投稿できます");
-  },"image/png");
+  document.getElementById("imgprevImg").src=c.toDataURL("image/png");
+  document.getElementById("imgprev").classList.add("open");
+  window._shareFile=null;
+  c.toBlob(function(b){if(b&&navigator.canShare){const f=new File([b],"odottar.png",{type:"image/png"});if(navigator.canShare({files:[f]}))window._shareFile=f;}},"image/png");
 }
-let tT;function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(tT);tT=setTimeout(()=>t.classList.remove("show"),1600);}
-/* ===== 行った（done）コレクション ===== */
-const DKEY="odottar_done_v1";
-let DONE={};try{DONE=JSON.parse(localStorage.getItem(DKEY)||"{}")}catch(e){}
-function saveDone(){try{localStorage.setItem(DKEY,JSON.stringify(DONE))}catch(e){}}
-const escapeHtml=s=>(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function toggleDone(name){
-  if(DONE[name])delete DONE[name]; else DONE[name]={y:2026};
-  const on=!!DONE[name]; saveDone(); render();
-  toast(on?"「行った」に記録しました":"「行った」を取り消しました");
-}
-function updateDoneCount(){const el=document.getElementById("doneN");if(el)el.textContent=Object.keys(DONE).length;}
-const doneList=()=>DATA.filter(e=>DONE[e.name]);
-function openCollection(){
-  const list=doneList();
-  document.getElementById("collList").innerHTML=list.length
-    ? list.map(e=>`<div class="post"><div class="ph"><b>${escapeHtml(e.name)}</b><span>${(DONE[e.name].y||2026)}年に行った</span></div><div class="pt">${longDate(e)}・${escapeHtml(e.venue)}</div></div>`).join("")
-    : '<div class="thempty">まだ「行った」がありません。<br>各盆踊りの詳細で「行った」を記録しよう</div>';
-  document.getElementById("coll").classList.add("open");
-}
-function closeCollection(){document.getElementById("coll").classList.remove("open");}
-function collectionText(){const list=doneList();if(!list.length)return"";
-  return "私が行った盆踊り\n"+list.map(e=>`・${e.name}（${DONE[e.name].y||2026}）`).join("\n")+"\n#おどったー #盆踊り #ShallWeBONdance";}
-function shareCollection(mode){
-  const list=doneList();if(!list.length){toast("先に「行った」を記録してください");return;}
-  if(mode==="line")window.open("https://line.me/R/msg/text/?"+encodeURIComponent(collectionText()),"_blank");
-  else if(mode==="copy"){if(navigator.clipboard)navigator.clipboard.writeText(collectionText()).then(()=>toast("コピーしました。友達に送ってね"));}
-  else drawCollection(list);
-}
+function closeImgPrev(){document.getElementById("imgprev").classList.remove("open");}
+function shareImgFile(){var e=curShareE();if(window._shareFile&&navigator.share){navigator.share({files:[window._shareFile],text:e?inviteText(e):""}).catch(function(){});}else{toast("画像を長押しして保存してください");}}
 function drawCollection(list){
   const c=document.getElementById("shCanvas");c.width=1080;c.height=1350;
   const x=c.getContext("2d");
@@ -610,7 +600,7 @@ function filterTag(t){state.tag=t;closePage();render();window.scrollTo({top:docu
 
 /* ===== 個別ページ ===== */
 let pageName=null;
-function openPage(name){location.hash="#e/"+encodeURIComponent(name);route();}
+function openPage(name){const e=DATA.find(x=>x.name===name);location.hash="#e/"+(e&&e.id?e.id:encodeURIComponent(name));route();}
 function closePage(){if(location.hash.startsWith("#e/"))history.back();else route();}
 const TIMEMAP={
 "サンシャインシティ納涼盆踊り大会":"19:00〜21:15（雨天中止）",
@@ -684,7 +674,7 @@ function pageLike(name){if(!LIKED[name]){LIKED[name]=true;saveLikes();hitRemote(
 function pageDone(name){if(DONE[name])delete DONE[name];else DONE[name]={y:2026};saveDone();renderPage(name);}
 function route(){
   const h=location.hash;const pg=document.getElementById("page");
-  if(h.startsWith("#e/")){const nm=decodeURIComponent(h.slice(3));if(DATA.find(x=>x.name===nm)){renderPage(nm);pg.classList.add("open");pg.scrollTop=0;return;}}
+  if(h.startsWith("#e/")){const key=h.slice(3);const e=DATA.find(x=>x.id===key)||DATA.find(x=>x.name===decodeURIComponent(key));if(e){renderPage(e.name);pg.classList.add("open");pg.scrollTop=0;return;}}
   pg.classList.remove("open");
 }
 window.addEventListener("hashchange",route);
@@ -699,10 +689,10 @@ async function loadSheet(){
   try{const r=await fetch(SHEET_CSV_URL);const t=await r.text();
     const rows=parseCSV(t).filter(r=>r.length>1);const head=rows.shift().map(h=>h.trim());
     const arr=rows.map(r=>{const o={};head.forEach((h,i)=>o[h]=(r[i]||"").trim());o.pop=parseInt(o.pop||"0",10)||0;return o;}).filter(o=>o.name);
-    if(arr.length){DATA=arr;rebuild();}
+    if(arr.length){DATA=arr;assignIds();rebuild();}
   }catch(e){}
 }
-function boot(){render();loadRemote();initAds();route();var _ff=document.getElementById("formFooter");if(_ff)_ff.href=FORM_URL||"#";}
+function boot(){assignIds();render();loadRemote();initAds();route();var _ff=document.getElementById("formFooter");if(_ff)_ff.href=FORM_URL||"#";}
 if(SHEET_CSV_URL){loadSheet().then(boot).catch(boot);}else{boot();}
 </script>
 </body>
