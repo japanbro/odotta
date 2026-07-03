@@ -97,7 +97,9 @@
   .like .hn{font-size:.66rem;font-weight:800;color:var(--sub)}
   .like.on .hn{color:var(--like)}
   .like.locked{cursor:default;opacity:1}
-  .exp{flex:0 0 auto;color:var(--line2);font-size:.72rem;transition:transform .15s}
+  .exp{flex:0 0 auto;color:var(--accent);font-size:1.05rem;transition:transform .15s}
+  .itop:active{background:#eef6fd}
+  .item{transition:background .12s}
   .item.open .exp{transform:rotate(180deg)}
   .detail{display:none;padding:0 12px 11px 46px}
   .item.open .detail{display:block}
@@ -108,7 +110,7 @@
   .feat{font-size:.79rem;color:#3d4d5c;margin-bottom:8px}
   .acts{display:flex;flex-wrap:wrap;gap:6px}
   .btn{font-size:.75rem;font-weight:700;padding:6px 11px;border:1px solid var(--line2);border-radius:20px;background:#fff;color:var(--ink);text-decoration:none;cursor:pointer}
-  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.primary{background:var(--like);border-color:var(--like);color:#fff}
   .btn.ghost{color:var(--accent);border-color:var(--accent)}
   .songs{margin-top:8px;background:#f4f8fb;border-radius:8px;padding:8px 10px;font-size:.79rem;color:#3d4d5c}
   .songs .lbl{font-size:.67rem;color:var(--sub);margin-bottom:2px}
@@ -154,7 +156,7 @@
   .lri{flex:1;min-width:0;cursor:pointer}
   .lrt{font-weight:800;font-size:.92rem;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .lrm{font-size:.7rem;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
-  .lrb{flex:0 0 auto;background:var(--accent);color:#fff;border:none;border-radius:20px;padding:8px 17px;font-size:.79rem;font-weight:800;cursor:pointer;letter-spacing:.02em}
+  .lrb{flex:0 0 auto;background:var(--like);color:#fff;border:none;border-radius:20px;padding:8px 17px;font-size:.79rem;font-weight:800;cursor:pointer;letter-spacing:.02em}
   .detailtop{margin-bottom:8px}
   .info{margin:2px 0 9px}
   .info>div{display:flex;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line);font-size:.8rem}
@@ -210,6 +212,7 @@
   .psec{font-size:.74rem;font-weight:800;color:var(--sub);letter-spacing:.04em;margin:2px 2px 7px}
   .pofficial2{display:inline-block;margin:2px 0 16px;color:#8a94a0;font-size:.78rem;font-weight:700;text-decoration:underline;filter:grayscale(1)}
   .lcorner{position:absolute;top:calc(9px + env(safe-area-inset-top));left:13px;max-width:64%;text-align:left;font-size:.6rem;font-weight:700;line-height:1.5;letter-spacing:.03em;opacity:.8;z-index:2}
+  .morebtn{display:block;width:calc(100% - 24px);margin:14px 12px 20px;padding:14px;text-align:center;background:#fff;border:1px solid var(--line2);border-radius:12px;font-weight:800;font-size:.9rem;color:var(--accent);cursor:pointer}
 </style>
 </head>
 <body>
@@ -277,12 +280,13 @@ const COUNTER_ENDPOINT="https://xxx.workers.dev";
 const ADSENSE_CLIENT="";  /* 例: "ca-pub-1234567890123456" */
 const ADSENSE_SLOT="";
 /* おどったーの公開URL。設定すると誘いメッセージに露出。空なら主催サイトURL。 */
-const APP_URL="";
+const APP_URL="https://odottar.vercel.app";
 /* 情報提供・修正のGoogleフォームURL。設定するとフッター/各ページ下部にリンク表示。 */
 const FORM_URL="https://forms.gle/wDaecLp71c8gWCuV6";
 const SHEET_CSV_URL="";
 
 let DATA = [
+ {name:"ビールと浴衣de盆踊り in 上野",kai:"第3回",start:"2026-07-03",end:"2026-07-05",venue:"上野恩賜公園 竹の台広場（噴水広場）",station:"上野駅",area:"台東区",scale:"大規模",feature:"ふるさと東京応援祭。ビール・浴衣・盆踊り・ライブ・フードを楽しむ3日間。11:00〜21:00（最終日20:00）。浴衣レンタル・着付けあり",songs:"",site:"https://www.furusatotokyofes.com/",siteType:"official",pop:1500},
  {name:"せたがやふるさと区民まつり",kai:"第47回",start:"2026-06-06",end:"2026-06-07",venue:"JRA馬事公苑・けやき広場",station:"用賀駅",area:"世田谷区",scale:"大規模",feature:"2026は会場都合で8月→6月に変更。盆踊り・サンバ・物産展。11:00〜21:00",songs:"",site:"https://setagaya-matsuri.com/",siteType:"official",pop:210},
  {name:"奥浅草盆踊り",kai:"第4回",start:"2026-06-27",end:"2026-06-27",venue:"隅田公園 山谷堀広場",station:"とうきょうスカイツリー駅",area:"台東区",scale:"毎年15,000人超",feature:"屋台縁日・太鼓演奏。スカイツリーを望む。盆踊り18:00〜",songs:"",site:"https://www.enjoytokyo.jp/event/2068254/",siteType:"ref",pop:190},
  {name:"下町七夕まつり",kai:"第39回",start:"2026-07-04",end:"2026-07-05",venue:"かっぱ橋本通り",station:"田原町駅",area:"台東区",scale:"大規模（七夕主体）",feature:"七夕飾りとパレード。盆踊りコーナーあり",songs:"",site:"https://summer.walkerplus.com/odekake/detail_e/ar0313e187246/",siteType:"ref",pop:170},
@@ -294,21 +298,20 @@ let DATA = [
  {name:"エドモント夏まつり2026",kai:"第22回",start:"2026-07-28",end:"2026-07-28",venue:"ホテルメトロポリタンエドモント前",station:"飯田橋駅",area:"千代田区",scale:"小〜中規模",feature:"ホテル前で大盆踊り大会。屋台",songs:"",site:"https://www.edmont.metropolitan.jp/",siteType:"official",pop:90},
  {name:"すみだ錦糸町河内音頭大盆踊り",kai:"第44回",start:"2026-07-29",end:"2026-07-30",venue:"竪川親水公園 特設会場",station:"錦糸町駅",area:"墨田区",scale:"中〜大規模",feature:"東京で数少ない全編生唄・生演奏の河内音頭。17:30〜21:00",songs:"河内音頭、江州音頭",site:"https://www.kinshicho-kawachiondo.jp/",siteType:"official",pop:410},
  {name:"築地本願寺納涼盆踊り大会",kai:"第79回",start:"2026-07-29",end:"2026-08-01",venue:"築地本願寺 境内",station:"築地駅",area:"中央区",scale:"都内最大級・数万人",feature:"名店屋台。最終日は仮装大会・大江戸助六太鼓。飛び入り可。19:00〜21:00",songs:"築地音頭、東京音頭、大江戸助六音頭 ほか",site:"https://tsukijihongwanji.jp/",siteType:"official",pop:980,beginner:true},
- {name:"サンシャインシティ納涼盆踊り大会",kai:"第47回",start:"2026-07-30",end:"2026-08-01",venue:"サンシャインシティ 噴水広場",station:"東池袋駅",area:"豊島区",scale:"中規模",feature:"昔ながらの雰囲気。屋台・櫓。池袋の恒例行事",songs:"",site:"https://sunshinecity.jp/",siteType:"official",pop:330,beginner:true},
+ {name:"サンシャインシティ納涼盆踊り大会",kai:"第47回",start:"2026-07-30",end:"2026-08-01",venue:"サンシャイン広場",station:"東池袋駅",area:"豊島区",scale:"中規模",feature:"池袋サンシャインシティの恒例盆踊り。19:00〜21:15（雨天中止）。入場無料。屋台・櫓",songs:"",site:"https://sunshinecity.jp/event/entry-37720.html",siteType:"official",pop:1550},
  {name:"恵比寿駅前盆踊り大会",kai:"第71回",start:"2026-07-31",end:"2026-08-01",venue:"JR恵比寿駅西口広場（アトレ前）",station:"恵比寿駅",area:"渋谷区",scale:"中規模",feature:"駅前広場で開催。17:30〜21:30",songs:"",site:"https://ebisubondance.jp/",siteType:"official",pop:300,beginner:true},
- {name:"中野駅前大盆踊り大会",kai:"第14回",start:"2026-08-01",end:"2026-08-02",venue:"中野セントラルパーク",station:"中野駅",area:"中野区",scale:"約7万人",feature:"和楽器生演奏＋DJ KOO等ゲスト。通称『盆ジョヴィ』。10:00〜21:00",songs:"中野音頭、東京音頭、炭坑節、ドダレバチ、鹿児島おはら",site:"https://nakabon.jp/",siteType:"official",pop:920,beginner:true},
+ {name:"中野駅前大盆踊り大会",kai:"第14回",start:"2026-08-01",end:"2026-08-02",venue:"中野セントラルパーク",station:"中野駅",area:"中野区",scale:"約7万人",feature:"和楽器生演奏＋DJ KOO等ゲスト。通称『盆ジョヴィ』。10:00〜21:00",songs:"中野音頭、東京音頭、炭坑節、ドダレバチ、鹿児島おはら",site:"https://nakabon.jp/",siteType:"official",pop:1400,beginner:true},
  {name:"墨田区民納涼民踊大会",kai:"",start:"2026-08-01",end:"2026-08-03",venue:"東京スカイツリータウン ソラマチひろば",station:"とうきょうスカイツリー駅",area:"墨田区",scale:"中〜大規模",feature:"東京ソラマチ夏まつりと同時開催。スカイツリー直下。18:00〜20:00",songs:"",site:"https://www.enjoytokyo.jp/event/2021366/",siteType:"ref",pop:240},
  {name:"神田明神納涼祭り",kai:"",start:"2026-08-07",end:"2026-08-09",venue:"神田明神 境内",station:"御茶ノ水駅",area:"千代田区",scale:"中規模",feature:"7日アニソン盆踊り／8日千代田区民踊／9日浜町音頭。グルメ・ビール祭り同時",songs:"アニメソング（7日）／区民踊各種（8日）／浜町音頭（9日）",site:"https://www.nouryo-matsuri.com/",siteType:"official",pop:470,beginner:true},
  {name:"大崎ニューシティ盆踊り大会",kai:"第36回",start:"2026-08-21",end:"2026-08-22",venue:"大崎ニューシティ",station:"大崎駅",area:"品川区",scale:"中規模",feature:"大崎ニューシティ恒例。屋台・櫓",songs:"",site:"https://summer.walkerplus.com/odekake/detail_e/ar0313e318203/",siteType:"ref",pop:120},
- {name:"東京高円寺阿波おどり",kai:"第67回",start:"2026-08-29",end:"2026-08-30",venue:"高円寺駅周辺商店街・高南通り",station:"高円寺駅",area:"杉並区",scale:"例年約100万人",feature:"※盆踊りとは別系統の阿波おどり。都内屈指の夏の風物詩。17:00〜20:00",songs:"阿波おどり（連による演舞）",site:"https://www.koenji-awaodori.com/",siteType:"official",pop:1240},
- {name:"六本木ヒルズ盆踊り",kai:"",start:"",end:"",venue:"六本木ヒルズアリーナ",station:"六本木駅",area:"港区",scale:"都内最大級",feature:"例年8月下旬（2025は8/22-24）。ヒルズ飲食店の屋台。六本人音頭",songs:"六本人（ろっぽんちゅ）音頭 ほか",site:"https://www.roppongihills.com/",siteType:"official",pop:760,status:"未定",beginner:true},
+  {name:"六本木ヒルズ盆踊り",kai:"",start:"",end:"",venue:"六本木ヒルズアリーナ",station:"六本木駅",area:"港区",scale:"都内最大級",feature:"例年8月下旬（2025は8/22-24）。ヒルズ飲食店の屋台。六本人音頭",songs:"六本人（ろっぽんちゅ）音頭 ほか",site:"https://www.roppongihills.com/",siteType:"official",pop:760,status:"未定",beginner:true},
  {name:"渋谷盆踊り",kai:"",start:"",end:"",venue:"SHIBUYA109前 道玄坂・文化村通り",station:"渋谷駅",area:"渋谷区",scale:"約6万人",feature:"例年8月上旬（2025は8/2）。109前に櫓、路上で開催。交通規制あり",songs:"渋谷音頭、オリンピック渋谷音頭、夢みる渋谷音頭、東京音頭、大東京音頭、河内おとこ節、炭坑節",site:"https://shibuchika.jp/",siteType:"official",pop:540,status:"未定",beginner:true},
  {name:"日比谷公園丸の内音頭大盆踊り大会",kai:"",start:"",end:"",venue:"日比谷公園 噴水広場ほか",station:"日比谷駅",area:"千代田区",scale:"大規模",feature:"『丸の内音頭』発祥の大会。2026年は中止",songs:"丸の内音頭、東京音頭",site:"https://www.hibiyabonodori.com/",siteType:"official",pop:150,status:"中止"},
  {name:"巣鴨納涼盆踊り",kai:"",start:"",end:"",venue:"とげぬき地蔵尊（高岩寺）境内",station:"巣鴨駅",area:"豊島区",scale:"中規模",feature:"例年7月下旬。すがもん登場、飛び入り歓迎",songs:"",site:"https://sugamo.or.jp/",siteType:"official",pop:160,status:"未定",beginner:true},
- {name:"下北沢盆踊り",kai:"",start:"2026-07-25",end:"2026-07-26",venue:"下北沢駅東口駅前広場",station:"下北沢駅",area:"世田谷区",scale:"中規模",feature:"露店13:00・ステージ14:00・盆踊り16:00〜。下北沢東会・あずま通り商店街主催。シモキタ音頭も",songs:"シモキタ音頭 ほか",site:"https://shimokitazawa-east.com/",siteType:"official",pop:200},
+ {name:"下北沢盆踊り",kai:"",start:"2026-07-25",end:"2026-07-26",venue:"下北沢駅東口駅前広場",station:"下北沢駅",area:"世田谷区",scale:"中規模",feature:"露店13:00・ステージ14:00・盆踊り16:00〜。下北沢東会・あずま通り商店街主催。シモキタ音頭も",songs:"シモキタ音頭 ほか",site:"https://shimokitazawa-east.com/",siteType:"official",pop:1600},
  {name:"佃島の盆踊（佃島念仏踊）",kai:"",start:"",end:"",venue:"中央区佃一丁目界隈",station:"月島駅",area:"中央区",scale:"小規模・都無形民俗文化財",feature:"例年7/13-15。江戸から続く念仏踊りの伝統行事",songs:"念仏・題目（佃島念仏踊）",site:"https://kawaii.bon-odori.net/bonodori/tokyo/734b",siteType:"ref",pop:140,status:"未定"},
  {name:"隅田川おどりフェスタ",kai:"",start:"",end:"",venue:"墨田区役所うるおい広場",station:"本所吾妻橋駅",area:"墨田区",scale:"中規模",feature:"例年8/23-24。エイサー・よさこい・自由参加盆踊り",songs:"",site:"https://www.enjoytokyo.jp/event/644246/",siteType:"ref",pop:110,status:"未定"},
- {name:"SHIBUYA MIYASHITA PARK BON DANCE",kai:"",start:"",end:"",venue:"MIYASHITA PARK 4階芝生ひろば",station:"渋谷駅",area:"渋谷区",scale:"中規模",feature:"例年9月下旬。渋谷カルチャーと祭りの融合",songs:"",site:"https://www.enjoytokyo.jp/event/2006840/",siteType:"ref",pop:220,status:"未定"},
+ {name:"SHIBUYA MIYASHITA PARK BON DANCE",kai:"",start:"2026-09-26",end:"2026-09-27",venue:"MIYASHITA PARK 4階 渋谷区立宮下公園 芝生ひろば",station:"渋谷駅",area:"渋谷区",scale:"中規模",feature:"渋谷カルチャーと祭りの融合。13:00〜21:00（雨天中止）。入場無料",songs:"",site:"https://miyashita-bondance.jp/",siteType:"official",pop:220},
  {name:"納涼盆踊り大会（武蔵野市）",kai:"",start:"",end:"",venue:"武蔵野市立中央図書館前庭",station:"三鷹駅",area:"武蔵野市",scale:"地域",feature:"例年7月中旬。和太鼓演技・屋台。17:00〜19:00",songs:"",site:"https://www.enjoytokyo.jp/event/2022182/",siteType:"ref",pop:70,status:"未定"},
 ];
 
@@ -354,7 +357,7 @@ const TABS=[
   {id:"next",label:"来週", order:"開催日が近い順", sort:"date", f:inNextWeek},
   {id:"liked",label:"おきにいり",order:"行きたい数順",sort:"pop",f:e=>!!LIKED[e.name]},
 ];
-const state={tab:"all"};
+const state={tab:"all",limit:30};
 function currentList(){
   const tab=TABS.find(t=>t.id===state.tab);
   let l=VISIBLE.filter(e=>tab.f(e));
@@ -390,7 +393,7 @@ function renderLanding(){
   const el=document.getElementById("landCard");if(!el)return;
   let list=VISIBLE.filter(inThisWeek).sort((a,b)=>likeCount(b)-likeCount(a));
   if(!list.length)list=VISIBLE.filter(e=>["live","week","soon"].includes(statusOf(e))).sort((a,b)=>likeCount(b)-likeCount(a));
-  const top=list.slice(0,3);
+  const top=list.slice(0,1);
   if(!top.length){el.style.display="none";return;}
   el.style.display="block";
   el.innerHTML='<div class="lph">今週開催の人気の盆踊り</div>'+top.map(e=>{
@@ -408,12 +411,12 @@ function render(){
     const n=VISIBLE.filter(t.f).length;
     return `<div class="tab ${t.id===state.tab?'on':''}" data-id="${t.id}">${t.label}<span class="n">${n}</span></div>`;
   }).join("");
-  document.querySelectorAll(".tab").forEach(el=>el.onclick=()=>{state.tab=el.dataset.id;render();window.scrollTo({top:0})});
+  document.querySelectorAll(".tab").forEach(el=>el.onclick=()=>{state.tab=el.dataset.id;state.limit=30;render();window.scrollTo({top:0})});
   const list=currentList();
   document.getElementById("count").textContent=`${list.length}件`;
   document.getElementById("orderLabel").textContent="並び："+TABS.find(t=>t.id===state.tab).order;
   const emptyEl=document.getElementById("empty");emptyEl.style.display=list.length?"none":"block";emptyEl.textContent=state.tab==="liked"?"「おきにいり」はまだ空です。気になる盆踊りのハートを押そう。":"該当する盆踊りがありません。";
-  document.getElementById("list").innerHTML=list.map(e=>{
+  document.getElementById("list").innerHTML=list.slice(0,state.limit).map(e=>{
     const st=ST[statusOf(e)],liked=!!LIKED[e.name];
     const esc=e.name.replace(/'/g,"\\'");
     const songVal=e.songs?e.songs:'<span style="color:var(--sub)">情報募集中（分かる方は教えてください）</span>';
@@ -423,7 +426,7 @@ function render(){
         <div class="dt${e.start?'':' none'}">${shortDate(e)}</div>
         <div class="nm">
           <div class="t">${e.name}</div>
-          <div class="s"><span class="bdg ${st.c}">${st.t}</span>${DONE[e.name]?'<span class="bdg done">済</span>':''}${e.station}・${e.area}${e.kai?" ・"+e.kai:""}</div>${(()=>{const tg=tagsOf(e).slice(0,3);return tg.length?`<div class="rowtags">${tg.map(t=>`<span>${t}</span>`).join("")}</div>`:"";})()}
+          <div class="s"><span class="bdg ${st.c}">${st.t}</span>${longDate(e)}・${e.station}</div>
         </div>
         <button class="like ${liked?'on locked':''}" ${liked?'disabled':''} onclick="event.stopPropagation();addLike('${esc}',this)" aria-label="行きたい">
           ${heartSVG(liked)}<span class="hn">${likeCount(e)}</span>
@@ -442,8 +445,9 @@ function render(){
         </div>
       </div>
     </div>`;
-  }).join("");
+  }).join("")+(list.length>state.limit?'<div class="morebtn" onclick="showMore()">もっと見る（残り'+(list.length-state.limit)+'件）</div>':"");
 }
+function showMore(){state.limit+=30;render();}
 function toggleDetail(el){el.closest(".item").classList.toggle("open");}
 function toggleSong(el){const box=el.closest(".detail").querySelector(".songs");const o=box.style.display!=="none";box.style.display=o?"none":"block";el.textContent=o?"♪ 踊れる曲":"♪ 閉じる";}
 function addLike(name,btn){
@@ -456,7 +460,7 @@ function addLike(name,btn){
     btn.querySelector("svg").outerHTML=heartSVG(true);btn.querySelector(".hn").textContent=likeCount(e);}
 }
 let curShare=null;
-const inviteURL=e=>APP_URL||e.site;
+const inviteURL=e=>APP_URL?APP_URL+"#e/"+encodeURIComponent(e.name):e.site;
 const inviteText=e=>`${e.name}｜${longDate(e)}\n日本最大級の盆踊り情報サイト「おどったー」\n${inviteURL(e)}`;
 const curShareE=()=>VISIBLE.find(x=>x.name===curShare);
 function shareSheet(name){curShare=name;const e=VISIBLE.find(x=>x.name===name);if(!e)return;
@@ -476,27 +480,35 @@ function wrap(x,text,X,Y,maxW,lh){const cs=[...text];let line="",yy=Y;for(const 
 function drawCard(e){
   const c=document.getElementById("shCanvas");c.width=1080;c.height=1920;
   const x=c.getContext("2d");
-  const g=x.createLinearGradient(0,0,0,1920);g.addColorStop(0,"#3cb0f7");g.addColorStop(1,"#1183cf");
-  x.fillStyle=g;x.fillRect(0,0,1080,1920);
+  x.fillStyle="#1da1f2";x.fillRect(0,0,1080,1920);
+  const g=x.createLinearGradient(0,0,0,1300);g.addColorStop(0,"#3cb0f7");g.addColorStop(1,"#1a97e6");
+  x.fillStyle=g;x.fillRect(0,0,1080,1300);
+  // 左上（トップと同じ）
+  x.textAlign="left";x.fillStyle="rgba(255,255,255,.9)";x.font="600 30px 'Hiragino Sans',sans-serif";
+  x.fillText("日本最大級の盆踊り情報サイト",60,92);
+  x.fillText("2026年盆踊り日程一覧",60,134);
+  // ロゴ
   x.textAlign="center";x.fillStyle="#fff";
-  x.font="italic 900 150px 'Hiragino Sans','Yu Gothic',sans-serif";
-  x.fillText("おどったー",540,250);
-  x.font="italic 60px Georgia,'Times New Roman',serif";x.fillStyle="rgba(255,255,255,.96)";
-  x.fillText("Shall we BON dance?",540,340);
-  x.fillStyle="#fff";rr(x,70,430,940,760,44);x.fill();
+  x.font="italic 900 168px 'Hiragino Sans','Yu Gothic',sans-serif";
+  x.fillText("おどったー",540,420);
+  // スローガン
+  x.font="italic 74px Georgia,'Times New Roman',serif";x.fillStyle="rgba(255,255,255,.96)";
+  x.fillText("Shall we BON dance?",540,520);
+  // 盆オドラー
+  x.font="600 33px 'Hiragino Sans',sans-serif";x.fillStyle="rgba(255,255,255,.82)";
+  x.fillText("盆オドラー、それは盆踊りを愛する人。",540,586);
+  // 白カード（展開情報）
+  x.fillStyle="#fff";rr(x,70,660,940,600,40);x.fill();
   x.textAlign="left";
-  x.fillStyle="#1a86d0";x.font="bold 40px sans-serif";
-  x.fillText("この盆踊り、一緒に行かない？",118,528);
   x.fillStyle="#0f1419";x.font="900 66px 'Hiragino Sans',sans-serif";
-  let yy=wrap(x,e.name,118,628,830,82)+60;
-  x.fillStyle="#5b7083";x.font="42px sans-serif";
-  x.fillText("日程　"+longDate(e),118,yy);yy+=66;
-  yy=wrap(x,"会場　"+e.venue,118,yy,830,54)+66;
-  x.fillText("最寄　"+e.station,118,yy);yy+=66;
-  x.fillText("時間　"+timeOf(e),118,yy);
-  x.textAlign="center";x.fillStyle="rgba(255,255,255,.96)";x.font="bold 36px 'Hiragino Sans',sans-serif";
-  x.fillText("おどったー｜日本最大級の盆踊り情報サイト",540,1250);
-  // 下1/3（約1290〜1920）は背景色のみ＝自分で文字入れ用に空ける
+  let yy=wrap(x,e.name,120,762,800,80)+34;
+  const row=(label,val)=>{yy+=78;x.fillStyle="#8a94a0";x.font="bold 38px 'Hiragino Sans',sans-serif";x.fillText(label,120,yy);
+    x.fillStyle="#0f1419";x.font="40px 'Hiragino Sans',sans-serif";x.fillText(val,300,yy);};
+  row("日程",longDate(e).replace("2026年 ",""));
+  row("会場",e.venue);
+  row("最寄",e.station+"・"+e.area);
+  row("時間",timeOf(e));
+  // 下1/3（約1280〜1920）は背景のまま＝自分で文字入れ用
   return c;
 }
 async function saveImage(){
@@ -605,12 +617,14 @@ let pageName=null;
 function openPage(name){location.hash="#e/"+encodeURIComponent(name);}
 function closePage(){if(location.hash.startsWith("#e/"))history.back();else route();}
 const TIMEMAP={
+"サンシャインシティ納涼盆踊り大会":"19:00〜21:15（雨天中止）",
+"SHIBUYA MIYASHITA PARK BON DANCE":"13:00〜21:00（雨天中止）",
+"ビールと浴衣de盆踊り in 上野":"11:00〜21:00（最終日20:00）",
 "築地本願寺納涼盆踊り大会":"19:00〜21:00（最終日は18:00〜20:30）",
 "中野駅前大盆踊り大会":"10:00〜21:00",
 "恵比寿駅前盆踊り大会":"17:30〜21:30",
 "すみだ錦糸町河内音頭大盆踊り":"17:30〜21:00",
 "新橋こいち祭":"15:00〜20:30",
-"東京高円寺阿波おどり":"17:00〜20:00",
 "自由が丘納涼盆踊り大会":"18:00〜21:00",
 "みたままつり（靖国神社）":"18:00〜21:30頃",
 "奥浅草盆踊り":"14:00〜21:00（盆踊りは18:00〜）",
@@ -627,10 +641,10 @@ const TIMEMAP={
 };
 const timeOf=e=>e.time||TIMEMAP[e.name]||"情報募集中";
 const SUMMARYMAP={
+"ビールと浴衣de盆踊り in 上野":"上野恩賜公園の竹の台広場（噴水広場）で開かれる『ふるさと東京応援祭』。ビールと浴衣で楽しむ盆踊りを軸に、ライブやフードも充実。浴衣レンタル・着付けサービスもあり手ぶらで参加できる。",
 "築地本願寺納涼盆踊り大会":"築地本願寺の境内で毎年開催される都内最大級の納涼盆踊り。築地場外市場の名店が屋台を出しグルメも充実。最終日の仮装大会や大江戸助六太鼓の奉納が名物で、誰でも飛び入りで輪に加われる。",
 "中野駅前大盆踊り大会":"中野セントラルパークで開かれる大規模盆踊り。中野区民謡連盟の和楽器生演奏に加えDJ KOO等ゲストも登場し、伝統とフェスを融合。約7万人が訪れ『盆ジョヴィ』の愛称でも知られる。",
 "すみだ錦糸町河内音頭大盆踊り":"竪川親水公園で行われる、東京では数少ない全編生唄・生演奏の河内音頭大盆踊り。独特のリズムで輪が広がる、下町の熱気あふれる二日間。",
-"東京高円寺阿波おどり":"高円寺の街を舞台にした東京を代表する阿波おどり。約100万人が訪れる夏の風物詩で、連による迫力の演舞が商店街を練り歩く（※盆踊りとは別系統）。",
 "恵比寿駅前盆踊り大会":"JR恵比寿駅西口広場で開かれる駅前の盆踊り大会。仕事帰りにも立ち寄りやすく、地元に長く愛される恒例行事。",
 "自由が丘納涼盆踊り大会":"1974年から続く自由が丘の盆踊り。駅前ロータリーで何重もの輪をつくり、炭坑節などの定番にJ-POPの新曲も交え、初心者も踊りやすい大会。",
 "みたままつり（靖国神社）":"靖国神社の境内を3万個超の献灯が照らす夏祭り。みこし振りや民踊(盆踊り)、青森ねぶたなど多彩な催しで、例年約30万人が訪れる。",
