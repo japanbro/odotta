@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1da1f2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="おどったー">
+<title>おどったー｜日本最大級の盆踊り情報サイト｜2026年盆踊り日程一覧</title>
+<meta name="description" content="日本最大級の盆踊り情報サイト。2026年最新の盆踊り日程を掲載中。盆オドラーのための口コミサイト。">
+<meta property="og:title" content="おどったー｜日本最大級の盆踊り情報サイト｜2026年盆踊り日程一覧">
+<meta property="og:description" content="日本最大級の盆踊り情報サイト。2026年最新の盆踊り日程を掲載中。盆オドラーのための口コミサイト。">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eaf4fb;--card:#ffffff;--ink:#0f1419;--sub:#5b7083;--line:#e3eaef;--line2:#cfdee9;
+    --accent:#1da1f2;--accentD:#1a8cd8;--tint:#e8f5fd;--like:#f4326e;--warnbg:#f2e7e7;--warn:#8a4141;--max:480px;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0}
+  html,body{background:var(--bg);color:var(--ink);line-height:1.45;
+    font-family:"Hiragino Sans","Yu Gothic UI","Yu Gothic",-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased}
+  .app{max-width:var(--max);margin:0 auto;background:var(--card);min-height:100vh}
+  /* 全画面ランディング */
+  .landing{min-height:40svh;color:#fff;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    gap:9px;padding:40px 24px calc(26px + env(safe-area-inset-top));
+    background:radial-gradient(135% 105% at 50% -15%, #3cb0f7 0%, var(--accent) 48%, #1690dd 100%)}
+  .landing::after{content:"";position:absolute;left:0;right:0;bottom:0;height:9px;opacity:.35;
+    background:conic-gradient(#fff 90deg, transparent 90deg 180deg, #fff 180deg 270deg, transparent 270deg) 0 0/13px 13px}
+  /* 提灯 */
+  .lanterns{position:absolute;top:0;left:2%;right:2%;height:40px;display:flex;justify-content:space-between;
+    padding:0 4px;z-index:1;border-top:1px solid rgba(255,255,255,.4)}
+  .lanterns i{position:relative;width:15px;height:20px;margin-top:8px;background:rgba(255,255,255,.92);border-radius:50%/42%;opacity:.9}
+  .lanterns i::before{content:"";position:absolute;left:1px;right:1px;top:5px;bottom:5px;
+    border-top:1px solid rgba(29,161,242,.4);border-bottom:1px solid rgba(29,161,242,.4)}
+  .lanterns i::after{content:"";position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:2px;height:9px;background:rgba(255,255,255,.55)}
+  .lanterns i:nth-child(even){height:17px;margin-top:11px}
+  .lbrand{display:flex;align-items:center;gap:11px;z-index:1;margin:8px 0 2px}
+  .llantern{font-size:2.5rem}
+  .lkick{font-size:.66rem;font-weight:800;letter-spacing:.32em;opacity:.9;z-index:1}
+  .lname{display:inline-block;font-size:3.4rem;font-weight:900;letter-spacing:.02em;font-style:italic;transform:skewX(-8deg);-webkit-text-stroke:1.6px currentColor;text-stroke:1.6px currentColor;text-shadow:0 5px 18px rgba(4,30,55,.26);z-index:1;line-height:1.02}
+  .lslogan{font-family:"Great Vibes","Snell Roundhand","Apple Chancery","Segoe Script","Dancing Script",cursive;font-size:1.9rem;font-weight:400;font-style:normal;letter-spacing:.02em;opacity:.92;z-index:1;margin-top:0;line-height:1.1}
+  .lcatch{z-index:1;display:flex;flex-direction:column;gap:6px;align-items:center}
+  .ldef{font-size:.62rem;font-weight:600;letter-spacing:.06em;opacity:.66}
+  .lsvc{font-size:.68rem;font-weight:600;letter-spacing:.05em;opacity:.72}
+  .linvite{margin-top:8px;font-size:1.05rem;font-weight:800;z-index:1}
+  .lcard{width:100%;max-width:344px;background:#fff;color:var(--ink);border-radius:18px;padding:15px 16px;text-align:left;
+    box-shadow:0 12px 30px rgba(0,0,0,.22);margin-top:4px;z-index:1}
+  .lcard .lk{font-size:.66rem;color:var(--accentD);font-weight:800}
+  .lcard .lt{font-size:1.08rem;font-weight:800;margin:3px 0 5px;line-height:1.3}
+  .lcard .lm{font-size:.77rem;color:var(--sub);line-height:1.6}
+  .lcta{display:block;width:100%;margin-top:12px;background:var(--accent);color:#fff;border:none;border-radius:24px;padding:12px;font-size:.94rem;font-weight:800;cursor:pointer}
+  .lsub{display:block;width:100%;margin-top:8px;background:none;border:none;color:var(--accentD);font-size:.82rem;font-weight:700;cursor:pointer}
+  .lscroll{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:1;
+    background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.55);color:#fff;border-radius:24px;
+    padding:9px 20px;font-size:.82rem;font-weight:800;cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+  /* スクロール後に上部固定される洗練バー */
+  .bar{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line)}
+  .barbrand{display:flex;align-items:baseline;gap:3px;padding:9px 14px 6px;font-weight:900;font-size:1rem;color:var(--accentD);letter-spacing:.03em}
+  .barbrand span{font-size:.64rem;color:var(--sub);font-weight:700;letter-spacing:0}
+  .tabs{display:flex;gap:7px;padding:9px 12px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;text-align:center;padding:7px 14px;font-size:.82rem;font-weight:800;color:var(--sub);background:#eef3f6;border:1px solid var(--line2);border-radius:20px;cursor:pointer;white-space:nowrap}
+  .tab.on{color:#fff;background:var(--accent);border-color:var(--accent)}
+  .tab .n{font-size:.64rem;color:var(--sub);margin-left:3px}
+  .tab.on .n{color:#fff;opacity:.85}
+  .yearbar{background:var(--tint);border-bottom:1px solid var(--line2);padding:7px 12px;font-size:.72rem;color:#3a6f97}
+  .yearbar b{color:var(--accentD)}
+  .sortbar{display:flex;justify-content:space-between;align-items:center;padding:6px 12px;color:var(--sub);font-size:.7rem;background:#f5fafd;border-bottom:1px solid var(--line)}
+  .hero{background:var(--card);border-bottom:6px solid var(--bg)}
+  .hero h2{padding:10px 12px 4px;font-size:.82rem;font-weight:800;color:var(--ink)}
+  .hempty{padding:0 12px 4px;font-size:.72rem;color:var(--sub)}
+  .hrow{display:flex;align-items:center;gap:8px;padding:6px 12px;border-top:1px solid var(--line);cursor:pointer}
+  .hrank{flex:0 0 18px;height:18px;background:var(--accent);color:#fff;font-size:.68rem;font-weight:800;display:flex;align-items:center;justify-content:center;border-radius:3px}
+  .hrow:nth-of-type(2) .hrank{background:#7fbdea}.hrow:nth-of-type(3) .hrank{background:#a9d2ef}
+  .hn2{flex:1;min-width:0;font-weight:700;font-size:.83rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hn2 .hd{font-weight:400;font-size:.7rem;color:var(--sub)}
+  .hlike{flex:0 0 auto;font-size:.73rem;font-weight:800;color:var(--like)}
+  .list{background:var(--card);padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+  .item{border-bottom:1px solid var(--line2)}
+  .itop{display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer}
+  .dt{flex:0 0 50px;background:var(--accent);color:#fff;border-radius:8px;padding:4px 3px;text-align:center;line-height:1.08}
+  .dt .mn{display:block;font-size:.86rem;font-weight:800;letter-spacing:.01em}
+  .dt .wd{display:block;font-size:.6rem;font-weight:700;opacity:.92}
+  .dt.none{background:#e6ebf0;color:var(--sub)}
+  .dt.none .nd{font-size:.66rem;font-weight:800}
+  .nm{flex:1;min-width:0}
+  .nm .t{font-weight:800;font-size:.95rem;line-height:1.25;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nm .s{font-size:.73rem;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+  .bdg{font-size:.6rem;font-weight:800;padding:1px 6px;border-radius:20px;margin-right:5px;vertical-align:1px}
+  .bdg.live,.bdg.week{color:#fff;background:var(--accent)}
+  .bdg.soon{color:var(--accentD);background:var(--tint)}
+  .bdg.tbd{color:var(--sub);background:#e6ebf0}
+  .bdg.cxl{color:#fff;background:#9aa3ac}
+  .like{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;border:none;background:none;cursor:pointer;padding:2px 3px;min-width:38px}
+  .like svg{width:20px;height:20px;display:block}
+  .like .hn{font-size:.66rem;font-weight:800;color:var(--sub)}
+  .like.on .hn{color:var(--like)}
+  .like.locked{cursor:default;opacity:1}
+  .exp{flex:0 0 auto;color:var(--line2);font-size:.72rem;transition:transform .15s}
+  .item.open .exp{transform:rotate(180deg)}
+  .detail{display:none;padding:0 12px 11px 46px}
+  .item.open .detail{display:block}
+  .chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:7px}
+  .chip{font-size:.67rem;background:#eef3f6;color:var(--sub);padding:2px 8px;border-radius:20px}
+  .chip.date{background:var(--tint);color:var(--accentD);font-weight:700}
+  .chip.scale{background:#eef3f6;color:#5b7083;font-weight:700}
+  .feat{font-size:.79rem;color:#3d4d5c;margin-bottom:8px}
+  .acts{display:flex;flex-wrap:wrap;gap:6px}
+  .btn{font-size:.75rem;font-weight:700;padding:6px 11px;border:1px solid var(--line2);border-radius:20px;background:#fff;color:var(--ink);text-decoration:none;cursor:pointer}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.ghost{color:var(--accent);border-color:var(--accent)}
+  .songs{margin-top:8px;background:#f4f8fb;border-radius:8px;padding:8px 10px;font-size:.79rem;color:#3d4d5c}
+  .songs .lbl{font-size:.67rem;color:var(--sub);margin-bottom:2px}
+  .songwanted{margin-top:8px;font-size:.76rem;color:var(--sub);background:#f4f8fb;border:1px dashed var(--line2);border-radius:8px;padding:8px 10px}
+  .songwanted b{color:var(--accentD)}
+  .empty{text-align:center;color:var(--sub);padding:44px 20px;background:var(--card);font-size:.85rem}
+  .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(16px);background:#0f1419;color:#fff;padding:8px 15px;border-radius:20px;font-size:.8rem;opacity:0;pointer-events:none;transition:.22s;z-index:60}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  /* 掲示板（ボトムシート） */
+  .sheet{position:fixed;inset:0;z-index:70;display:none}
+  .sheet.open{display:block}
+  .sheetbg{position:absolute;inset:0;background:rgba(15,20,25,.45)}
+  .sheetbox{position:absolute;left:0;right:0;bottom:0;max-width:var(--max);margin:0 auto;background:#fff;
+    border-radius:16px 16px 0 0;max-height:86vh;display:flex;flex-direction:column;overflow:hidden;border-top:1px solid var(--line2)}
+  .sheethead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff}
+  .sheethead b{font-size:.95rem;font-weight:800;line-height:1.3}
+  .sheethead .x{border:none;background:none;font-size:1.1rem;color:var(--sub);cursor:pointer;padding:4px}
+  .thlist{flex:1;overflow-y:auto;padding:6px 14px}
+  .thempty{color:var(--sub);font-size:.85rem;text-align:center;padding:30px 10px}
+  .post{padding:9px 0;border-bottom:1px solid var(--line)}
+  .post .ph{display:flex;gap:8px;align-items:baseline;font-size:.72rem;color:var(--sub)}
+  .post .ph b{color:var(--ink);font-size:.82rem;font-weight:800}
+  .post .pt{font-size:.88rem;margin-top:2px;white-space:pre-wrap;word-break:break-word}
+  .compose{border-top:1px solid var(--line2);padding:10px 14px calc(12px + env(safe-area-inset-bottom));background:#fbfdff}
+  .compose input,.compose textarea{width:100%;border:1px solid var(--line2);border-radius:10px;padding:8px 10px;font-size:.9rem;font-family:inherit}
+  .compose textarea{margin-top:6px;resize:none;height:66px}
+  .compose .row{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+  .compose .note{font-size:.66rem;color:var(--sub)}
+  .post-btn{background:var(--accent);color:#fff;border:none;border-radius:20px;font-weight:800;font-size:.85rem;padding:8px 18px;cursor:pointer}
+  .shname{font-weight:800;font-size:.95rem;margin-bottom:12px;color:var(--ink);line-height:1.35}
+  .shbtns{display:flex;flex-direction:column;gap:9px}
+  .shbtn{width:100%;text-align:left;border:1px solid var(--line2);background:#fff;border-radius:12px;padding:13px 14px;font-size:.9rem;font-weight:700;color:var(--ink);cursor:pointer}
+  .shbtn.line{background:#06c755;color:#fff;border-color:#06c755}
+  .shbtn.insta{background:#0f1419;color:#fff;border-color:#0f1419}
+  .bartop{display:flex;align-items:center;justify-content:space-between}
+  .donebtn{margin-right:12px;background:var(--tint);color:var(--accentD);border:1px solid var(--line2);border-radius:20px;padding:5px 12px;font-size:.76rem;font-weight:800;cursor:pointer}
+  .btn.done-on{background:var(--go);border-color:var(--go);color:#fff}
+  .bdg.done{color:#fff;background:var(--go)}
+  .lpanel{width:100%;max-width:348px;background:#fff;color:var(--ink);border-radius:16px;box-shadow:0 12px 30px rgba(6,40,72,.2);padding:2px 16px 8px;z-index:1;text-align:left}
+  .lph{font-size:.64rem;font-weight:800;color:var(--sub);letter-spacing:.1em;padding:10px 0 7px;border-bottom:1px solid var(--line)}
+  .lrow{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+  .lrow:first-of-type{border-top:none}
+  .lri{flex:1;min-width:0;cursor:pointer}
+  .lrt{font-weight:800;font-size:.92rem;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lrm{font-size:.7rem;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+  .lrb{flex:0 0 auto;background:var(--accent);color:#fff;border:none;border-radius:20px;padding:8px 17px;font-size:.79rem;font-weight:800;cursor:pointer;letter-spacing:.02em}
+  .detailtop{margin-bottom:8px}
+  .info{margin:2px 0 9px}
+  .info>div{display:flex;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line);font-size:.8rem}
+  .info dt{flex:0 0 92px;color:var(--sub);font-weight:700}
+  .info dd{flex:1;color:#3d4d5c;line-height:1.5}
+  .sitelink{display:inline-block;margin-top:11px;font-size:.75rem;color:var(--sub);text-decoration:underline}
+  .adslot{padding:8px 12px;background:var(--bg)}
+  .adslot:empty{display:none;padding:0}
+  @font-face{font-family:"ABKirigiris";src:local("AB-キリギリス"),local("AB-KirigirisU"),url("fonts/ab-kirigiris.woff2") format("woff2");font-display:swap}
+  .lname,.barbrand{font-family:"ABKirigiris","AB-キリギリス","Hiragino Maru Gothic ProN","Rounded Mplus 1c","Zen Maru Gothic",sans-serif}
+  .lname{font-weight:900;letter-spacing:.06em}
+  .tagbar{display:flex;gap:6px;overflow-x:auto;padding:8px 12px;background:#fff;border-bottom:1px solid var(--line);scrollbar-width:none}
+  .tagbar::-webkit-scrollbar{display:none}
+  .tchip{flex:0 0 auto;font-size:.74rem;font-weight:700;color:var(--sub);background:#eef3f6;border:1px solid var(--line2);border-radius:20px;padding:5px 11px;cursor:pointer;white-space:nowrap}
+  .tchip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .ptags{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 10px}
+  .ptag{font-size:.72rem;font-weight:700;color:var(--accentD);background:var(--tint);border-radius:20px;padding:4px 10px;cursor:pointer}
+  .rowtags{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+  .rowtags span{font-size:.64rem;color:var(--accentD);background:var(--tint);border-radius:10px;padding:1px 7px}
+  /* 個別ページ */
+  .page{position:fixed;inset:0;max-width:var(--max);margin:0 auto;background:var(--card);z-index:50;display:none;overflow-y:auto}
+  .page.open{display:block}
+  .phead{position:sticky;top:0;background:var(--accent);color:#fff;display:flex;align-items:center;gap:8px;padding:11px 12px;padding-top:calc(11px + env(safe-area-inset-top))}
+  .pback{background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;line-height:1;padding:0 4px}
+  .ptitle{font-weight:800;font-size:.98rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pbody{padding:14px 14px calc(30px + env(safe-area-inset-bottom))}
+  .pdt{font-size:.72rem;color:var(--accentD);font-weight:800;margin-bottom:4px}
+  .pname{font-size:1.35rem;font-weight:900;line-height:1.3;color:var(--ink)}
+  .tmuted{font-size:.72rem;color:var(--sub)}
+  .pofficial{display:block;margin-top:14px;background:#fff;border:1px solid var(--accent);color:var(--accent);border-radius:12px;padding:12px;text-align:center;font-weight:800;font-size:.9rem;text-decoration:none}
+  .tagbar{display:none!important}
+  .rowtags{display:none!important}
+  .ptags{display:none!important}
+  .phero{background:var(--tint);border-radius:16px;padding:15px 16px;margin-bottom:14px}
+  .phero .pdt{font-size:.72rem;color:var(--accentD);font-weight:800;margin-bottom:5px}
+  .pname{font-size:1.55rem;font-weight:900;line-height:1.3;color:var(--ink)}
+  .pdate{margin-top:9px;font-size:1.02rem;font-weight:800;color:var(--accentD)}
+  .pcard{border:1px solid var(--line2);border-radius:16px;overflow:hidden;margin-bottom:14px}
+  .pitem{display:flex;gap:12px;padding:11px 15px;border-bottom:1px solid var(--line);font-size:.87rem}
+  .pitem:last-child{border-bottom:none}
+  .pitem .pl{flex:0 0 74px;color:var(--sub);font-weight:700}
+  .pitem .pv{flex:1;color:var(--ink);line-height:1.55}
+  .pnote{font-size:.85rem;color:#3d4d5c;line-height:1.75;background:#f6f9fb;border-radius:14px;padding:13px 15px;margin-bottom:16px}
+  .pacts{display:flex;flex-direction:column;gap:9px;margin-bottom:16px}
+  .pacts .btn{padding:14px;font-size:.92rem;border-radius:12px;justify-content:center;display:flex;align-items:center}
+  .pacts .heartbtn{color:var(--like);border-color:#f3c2cf;font-weight:800}
+  .pacts .heartbtn.on{background:var(--like);color:#fff;border-color:var(--like)}
+  .adph{border:1px dashed var(--line2);border-radius:12px;padding:26px;text-align:center;color:var(--sub);font-size:.78rem}
+  .foot{padding:22px 16px calc(30px + env(safe-area-inset-bottom));text-align:center;background:var(--bg);border-top:1px solid var(--line)}
+  .formlink{display:inline-block;color:var(--accentD);font-size:.8rem;font-weight:700;text-decoration:underline}
+  .pbody .formlink{margin-top:14px}
+  .footcredit{margin-top:10px;font-size:.7rem;color:var(--sub)}
+  .psec{font-size:.74rem;font-weight:800;color:var(--sub);letter-spacing:.04em;margin:2px 2px 7px}
+  .pofficial2{display:inline-block;margin:2px 0 16px;color:#8a94a0;font-size:.78rem;font-weight:700;text-decoration:underline;filter:grayscale(1)}
+  .lcorner{position:absolute;top:calc(9px + env(safe-area-inset-top));left:13px;max-width:64%;text-align:left;font-size:.6rem;font-weight:700;line-height:1.5;letter-spacing:.03em;opacity:.8;z-index:2}
+</style>
+</head>
+<body>
+<div class="app">
+  <section class="landing">
+    <div class="lcorner">日本最大級の盆踊り情報サイト<br>2026年盆踊り日程一覧</div>
+    <div class="lbrand"><span class="lname">おどったー</span></div>
+    <div class="lslogan">Shall we BON dance?</div>
+    <div class="lcatch"><b class="ldef">盆オドラー、それは盆踊りを愛する人。</b></div>
+    <div class="lpanel" id="landCard"></div>
+  </section>
+  <header class="bar" id="bar">
+    <div class="tabs" id="tabs"></div>
+  </header>
+  <div class="hero" id="hero"></div>
+  <div class="adslot" id="ad1"></div>
+  <div class="sortbar"><span id="count"></span><span id="orderLabel"></span></div>
+  <div class="tagbar" id="tagbar"></div>
+  <div class="list" id="list"></div>
+  <div class="empty" id="empty" style="display:none"></div>
+  <footer class="foot">
+    <a class="formlink" id="formFooter" href="#" target="_blank" rel="noopener">盆踊りの情報を追加・修正する（Googleフォーム）</a>
+    <div class="footcredit">おどったー｜日本最大級の盆踊り情報サイト｜2026年盆踊り日程一覧</div>
+  </footer>
+</div>
+<div class="sheet" id="share">
+  <div class="sheetbg" onclick="closeShare()"></div>
+  <div class="sheetbox">
+    <div class="sheethead"><b>一緒に行く人に送る</b><button class="x" onclick="closeShare()">✕</button></div>
+    <div style="padding:14px">
+      <div id="shName" class="shname"></div>
+      <div class="shbtns">
+        <button class="shbtn line" onclick="lineInvite()">LINEで送る</button>
+        <button class="shbtn" onclick="copyInvite()">コピー（LINE等に貼り付け）</button>
+        <button class="shbtn insta" onclick="saveImage()">画像を保存（Instagram用）</button>
+        <button class="shbtn" id="nativeShareBtn" onclick="nativeShare()">その他アプリで送る</button>
+      </div>
+      <canvas id="shCanvas" width="1080" height="1920" style="display:none"></canvas>
+    </div>
+  </div>
+</div>
+<div class="sheet" id="coll">
+  <div class="sheetbg" onclick="closeCollection()"></div>
+  <div class="sheetbox">
+    <div class="sheethead"><b>行った盆踊り</b><button class="x" onclick="closeCollection()">✕</button></div>
+    <div class="thlist" id="collList"></div>
+    <div class="compose">
+      <div class="note" style="margin-bottom:8px">この「行ったリスト」を友達に共有できます。</div>
+      <div class="shbtns">
+        <button class="shbtn line" onclick="shareCollection('line')">LINEで共有</button>
+        <button class="shbtn" onclick="shareCollection('copy')">コピー</button>
+        <button class="shbtn insta" onclick="shareCollection('img')">画像で共有（Instagram用）</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page" id="page">
+  <div class="phead"><button class="pback" onclick="closePage()">←</button><div class="ptitle" id="pTitle"></div></div>
+  <div class="pbody" id="pBody"></div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const COUNTER_ENDPOINT="https://xxx.workers.dev";
+/* Google AdSense。空なら広告なし。取得後にIDを設定。 */
+const ADSENSE_CLIENT="";  /* 例: "ca-pub-1234567890123456" */
+const ADSENSE_SLOT="";
+/* おどったーの公開URL。設定すると誘いメッセージに露出。空なら主催サイトURL。 */
+const APP_URL="";
+/* 情報提供・修正のGoogleフォームURL。設定するとフッター/各ページ下部にリンク表示。 */
+const FORM_URL="https://forms.gle/wDaecLp71c8gWCuV6";
+const SHEET_CSV_URL="";
+
+let DATA = [
+ {name:"せたがやふるさと区民まつり",kai:"第47回",start:"2026-06-06",end:"2026-06-07",venue:"JRA馬事公苑・けやき広場",station:"用賀駅",area:"世田谷区",scale:"大規模",feature:"2026は会場都合で8月→6月に変更。盆踊り・サンバ・物産展。11:00〜21:00",songs:"",site:"https://setagaya-matsuri.com/",siteType:"official",pop:210},
+ {name:"奥浅草盆踊り",kai:"第4回",start:"2026-06-27",end:"2026-06-27",venue:"隅田公園 山谷堀広場",station:"とうきょうスカイツリー駅",area:"台東区",scale:"毎年15,000人超",feature:"屋台縁日・太鼓演奏。スカイツリーを望む。盆踊り18:00〜",songs:"",site:"https://www.enjoytokyo.jp/event/2068254/",siteType:"ref",pop:190},
+ {name:"下町七夕まつり",kai:"第39回",start:"2026-07-04",end:"2026-07-05",venue:"かっぱ橋本通り",station:"田原町駅",area:"台東区",scale:"大規模（七夕主体）",feature:"七夕飾りとパレード。盆踊りコーナーあり",songs:"",site:"https://summer.walkerplus.com/odekake/detail_e/ar0313e187246/",siteType:"ref",pop:170},
+ {name:"みたままつり（靖国神社）",kai:"第79回",start:"2026-07-13",end:"2026-07-16",venue:"靖国神社 境内",station:"九段下駅",area:"千代田区",scale:"例年約30万人",feature:"3万個超の献灯。みこし振り・民踊(盆踊り)・青森ねぶた等。18:00〜21:30頃",songs:"",site:"https://www.yasukuni.or.jp/",siteType:"official",pop:610},
+ {name:"自由が丘納涼盆踊り大会",kai:"",start:"2026-07-18",end:"2026-07-20",venue:"自由が丘駅前ロータリー広場",station:"自由が丘駅",area:"目黒区",scale:"中規模",feature:"1974年から続く。駅前で何重もの円。定番＋JPOP。18:00〜21:00",songs:"炭坑節、東京音頭、北海盆唄、やる気で音頭、自由が丘小唄、ホイップるん音頭、ダンシングヒーロー、夜に駆ける、希望の轍、高嶺の花子さん、八木節",site:"https://www.jiyugaoka-abc.com/special/bonodori/",siteType:"official",pop:260,beginner:true},
+ {name:"新橋こいち祭",kai:"第29回",start:"2026-07-23",end:"2026-07-24",venue:"新橋駅前SL広場・桜田公園ほか",station:"新橋駅",area:"港区",scale:"大規模",feature:"桜田会場で盆踊り。出店・ステージ・ビアガーデン。15:00〜20:30",songs:"東京音頭、新橋音頭",site:"http://www.shinbashi.net/top/koichi/2026/",siteType:"official",pop:280,beginner:true},
+ {name:"新小岩納涼盆踊り大会",kai:"",start:"2026-07-25",end:"2026-07-26",venue:"葛飾区立小松南小学校",station:"新小岩駅",area:"葛飾区",scale:"地域",feature:"模擬店16:00〜／盆踊り18:00〜20:30。求めやすい価格の模擬店",songs:"",site:"https://www.enjoytokyo.jp/event/2028952/",siteType:"ref",pop:80},
+ {name:"ひので夏まつり",kai:"",start:"2026-07-25",end:"2026-07-25",venue:"日の出町（会場は年により変更）",station:"武蔵引田駅ほか",area:"西多摩・日の出町",scale:"地域",feature:"日の出町の夏の風物詩。盆踊り・屋台。※変更の場合あり",songs:"",site:"https://summer.walkerplus.com/odekake/detail_e/ar0313e603669/",siteType:"ref",pop:60},
+ {name:"エドモント夏まつり2026",kai:"第22回",start:"2026-07-28",end:"2026-07-28",venue:"ホテルメトロポリタンエドモント前",station:"飯田橋駅",area:"千代田区",scale:"小〜中規模",feature:"ホテル前で大盆踊り大会。屋台",songs:"",site:"https://www.edmont.metropolitan.jp/",siteType:"official",pop:90},
+ {name:"すみだ錦糸町河内音頭大盆踊り",kai:"第44回",start:"2026-07-29",end:"2026-07-30",venue:"竪川親水公園 特設会場",station:"錦糸町駅",area:"墨田区",scale:"中〜大規模",feature:"東京で数少ない全編生唄・生演奏の河内音頭。17:30〜21:00",songs:"河内音頭、江州音頭",site:"https://www.kinshicho-kawachiondo.jp/",siteType:"official",pop:410},
+ {name:"築地本願寺納涼盆踊り大会",kai:"第79回",start:"2026-07-29",end:"2026-08-01",venue:"築地本願寺 境内",station:"築地駅",area:"中央区",scale:"都内最大級・数万人",feature:"名店屋台。最終日は仮装大会・大江戸助六太鼓。飛び入り可。19:00〜21:00",songs:"築地音頭、東京音頭、大江戸助六音頭 ほか",site:"https://tsukijihongwanji.jp/",siteType:"official",pop:980,beginner:true},
+ {name:"サンシャインシティ納涼盆踊り大会",kai:"第47回",start:"2026-07-30",end:"2026-08-01",venue:"サンシャインシティ 噴水広場",station:"東池袋駅",area:"豊島区",scale:"中規模",feature:"昔ながらの雰囲気。屋台・櫓。池袋の恒例行事",songs:"",site:"https://sunshinecity.jp/",siteType:"official",pop:330,beginner:true},
+ {name:"恵比寿駅前盆踊り大会",kai:"第71回",start:"2026-07-31",end:"2026-08-01",venue:"JR恵比寿駅西口広場（アトレ前）",station:"恵比寿駅",area:"渋谷区",scale:"中規模",feature:"駅前広場で開催。17:30〜21:30",songs:"",site:"https://ebisubondance.jp/",siteType:"official",pop:300,beginner:true},
+ {name:"中野駅前大盆踊り大会",kai:"第14回",start:"2026-08-01",end:"2026-08-02",venue:"中野セントラルパーク",station:"中野駅",area:"中野区",scale:"約7万人",feature:"和楽器生演奏＋DJ KOO等ゲスト。通称『盆ジョヴィ』。10:00〜21:00",songs:"中野音頭、東京音頭、炭坑節、ドダレバチ、鹿児島おはら",site:"https://nakabon.jp/",siteType:"official",pop:920,beginner:true},
+ {name:"墨田区民納涼民踊大会",kai:"",start:"2026-08-01",end:"2026-08-03",venue:"東京スカイツリータウン ソラマチひろば",station:"とうきょうスカイツリー駅",area:"墨田区",scale:"中〜大規模",feature:"東京ソラマチ夏まつりと同時開催。スカイツリー直下。18:00〜20:00",songs:"",site:"https://www.enjoytokyo.jp/event/2021366/",siteType:"ref",pop:240},
+ {name:"神田明神納涼祭り",kai:"",start:"2026-08-07",end:"2026-08-09",venue:"神田明神 境内",station:"御茶ノ水駅",area:"千代田区",scale:"中規模",feature:"7日アニソン盆踊り／8日千代田区民踊／9日浜町音頭。グルメ・ビール祭り同時",songs:"アニメソング（7日）／区民踊各種（8日）／浜町音頭（9日）",site:"https://www.nouryo-matsuri.com/",siteType:"official",pop:470,beginner:true},
+ {name:"大崎ニューシティ盆踊り大会",kai:"第36回",start:"2026-08-21",end:"2026-08-22",venue:"大崎ニューシティ",station:"大崎駅",area:"品川区",scale:"中規模",feature:"大崎ニューシティ恒例。屋台・櫓",songs:"",site:"https://summer.walkerplus.com/odekake/detail_e/ar0313e318203/",siteType:"ref",pop:120},
+ {name:"東京高円寺阿波おどり",kai:"第67回",start:"2026-08-29",end:"2026-08-30",venue:"高円寺駅周辺商店街・高南通り",station:"高円寺駅",area:"杉並区",scale:"例年約100万人",feature:"※盆踊りとは別系統の阿波おどり。都内屈指の夏の風物詩。17:00〜20:00",songs:"阿波おどり（連による演舞）",site:"https://www.koenji-awaodori.com/",siteType:"official",pop:1240},
+ {name:"六本木ヒルズ盆踊り",kai:"",start:"",end:"",venue:"六本木ヒルズアリーナ",station:"六本木駅",area:"港区",scale:"都内最大級",feature:"例年8月下旬（2025は8/22-24）。ヒルズ飲食店の屋台。六本人音頭",songs:"六本人（ろっぽんちゅ）音頭 ほか",site:"https://www.roppongihills.com/",siteType:"official",pop:760,status:"未定",beginner:true},
+ {name:"渋谷盆踊り",kai:"",start:"",end:"",venue:"SHIBUYA109前 道玄坂・文化村通り",station:"渋谷駅",area:"渋谷区",scale:"約6万人",feature:"例年8月上旬（2025は8/2）。109前に櫓、路上で開催。交通規制あり",songs:"渋谷音頭、オリンピック渋谷音頭、夢みる渋谷音頭、東京音頭、大東京音頭、河内おとこ節、炭坑節",site:"https://shibuchika.jp/",siteType:"official",pop:540,status:"未定",beginner:true},
+ {name:"日比谷公園丸の内音頭大盆踊り大会",kai:"",start:"",end:"",venue:"日比谷公園 噴水広場ほか",station:"日比谷駅",area:"千代田区",scale:"大規模",feature:"『丸の内音頭』発祥の大会。2026年は中止",songs:"丸の内音頭、東京音頭",site:"https://www.hibiyabonodori.com/",siteType:"official",pop:150,status:"中止"},
+ {name:"巣鴨納涼盆踊り",kai:"",start:"",end:"",venue:"とげぬき地蔵尊（高岩寺）境内",station:"巣鴨駅",area:"豊島区",scale:"中規模",feature:"例年7月下旬。すがもん登場、飛び入り歓迎",songs:"",site:"https://sugamo.or.jp/",siteType:"official",pop:160,status:"未定",beginner:true},
+ {name:"下北沢盆踊り",kai:"",start:"2026-07-25",end:"2026-07-26",venue:"下北沢駅東口駅前広場",station:"下北沢駅",area:"世田谷区",scale:"中規模",feature:"露店13:00・ステージ14:00・盆踊り16:00〜。下北沢東会・あずま通り商店街主催。シモキタ音頭も",songs:"シモキタ音頭 ほか",site:"https://shimokitazawa-east.com/",siteType:"official",pop:200},
+ {name:"佃島の盆踊（佃島念仏踊）",kai:"",start:"",end:"",venue:"中央区佃一丁目界隈",station:"月島駅",area:"中央区",scale:"小規模・都無形民俗文化財",feature:"例年7/13-15。江戸から続く念仏踊りの伝統行事",songs:"念仏・題目（佃島念仏踊）",site:"https://kawaii.bon-odori.net/bonodori/tokyo/734b",siteType:"ref",pop:140,status:"未定"},
+ {name:"隅田川おどりフェスタ",kai:"",start:"",end:"",venue:"墨田区役所うるおい広場",station:"本所吾妻橋駅",area:"墨田区",scale:"中規模",feature:"例年8/23-24。エイサー・よさこい・自由参加盆踊り",songs:"",site:"https://www.enjoytokyo.jp/event/644246/",siteType:"ref",pop:110,status:"未定"},
+ {name:"SHIBUYA MIYASHITA PARK BON DANCE",kai:"",start:"",end:"",venue:"MIYASHITA PARK 4階芝生ひろば",station:"渋谷駅",area:"渋谷区",scale:"中規模",feature:"例年9月下旬。渋谷カルチャーと祭りの融合",songs:"",site:"https://www.enjoytokyo.jp/event/2006840/",siteType:"ref",pop:220,status:"未定"},
+ {name:"納涼盆踊り大会（武蔵野市）",kai:"",start:"",end:"",venue:"武蔵野市立中央図書館前庭",station:"三鷹駅",area:"武蔵野市",scale:"地域",feature:"例年7月中旬。和太鼓演技・屋台。17:00〜19:00",songs:"",site:"https://www.enjoytokyo.jp/event/2022182/",siteType:"ref",pop:70,status:"未定"},
+];
+
+const WD=["日","月","火","水","木","金","土"];
+const TODAY=new Date(new Date().toDateString());
+const d=s=>s?new Date(s+"T00:00:00"):null;
+const dayDiff=(a,b)=>Math.round((a-b)/86400000);
+const pad=n=>String(n).padStart(2,"0");
+function shortDate(e){
+  if(!e.start)return '<span class="nd">調査中</span>';
+  const s=d(e.start);const multi=e.end&&e.end!==e.start;
+  return `<span class="mn">${s.getMonth()+1}/${s.getDate()}</span><span class="wd">${WD[s.getDay()]}${multi?"〜":""}</span>`;
+}
+function longDate(e){if(!e.start)return"日程未定";const f=x=>`${x.getMonth()+1}/${x.getDate()}(${WD[x.getDay()]})`;
+  const body=(e.end&&e.end!==e.start)?f(d(e.start))+"〜"+f(d(e.end)):f(d(e.start));return "2026年 "+body;}
+function statusOf(e){
+  if(e.status==="中止")return"cxl";
+  if(!e.start)return"tbd";
+  const s=d(e.start),en=d(e.end||e.start);
+  if(en<TODAY)return"end";
+  if(s<=TODAY&&TODAY<=en)return"live";
+  const dd=dayDiff(s,TODAY);
+  if(dd>=0&&dd<=6)return"week";
+  return"soon";
+}
+const ST={live:{t:"開催中",c:"live"},week:{t:"今週",c:"week"},soon:{t:"開催予定",c:"soon"},tbd:{t:"調査中",c:"tbd"},cxl:{t:"中止",c:"cxl"}};
+let VISIBLE=DATA.filter(e=>statusOf(e)!=="end");
+function rebuild(){VISIBLE=DATA.filter(e=>statusOf(e)!=="end");}
+const KEY="odottar_kininaru_v1";
+let LIKED={};try{LIKED=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
+const REMOTE={};
+function saveLikes(){try{localStorage.setItem(KEY,JSON.stringify(LIKED))}catch(e){}}
+function likeCount(e){if(COUNTER_ENDPOINT&&REMOTE[e.name]!=null)return e.pop+REMOTE[e.name];return e.pop+(LIKED[e.name]?1:0);}
+async function loadRemote(){if(!COUNTER_ENDPOINT)return;try{const r=await fetch(COUNTER_ENDPOINT+"/counts");Object.assign(REMOTE,await r.json());render();}catch(e){}}
+async function hitRemote(n){if(!COUNTER_ENDPOINT)return;try{const r=await fetch(COUNTER_ENDPOINT+"/hit?k="+encodeURIComponent(n),{method:"POST"});const j=await r.json();if(j&&j.count!=null){REMOTE[n]=j.count;render();}}catch(e){}}
+const inThisWeek=e=>["live","week"].includes(statusOf(e));
+const inNextWeek=e=>{if(!e.start||statusOf(e)==="cxl")return false;const dd=dayDiff(d(e.start),TODAY);return dd>=7&&dd<=13;};
+const rankStatus=e=>{const s=statusOf(e);return s==="cxl"?2:(s==="tbd"?1:0);};
+const TABS=[
+  {id:"all", label:"すべて",order:"開催日順",sort:"smart",f:e=>true},
+  {id:"pop", label:"人気", order:"行きたい数順", sort:"pop",  f:e=>true},
+  {id:"week",label:"今週", order:"開催日が近い順", sort:"date", f:inThisWeek},
+  {id:"next",label:"来週", order:"開催日が近い順", sort:"date", f:inNextWeek},
+  {id:"liked",label:"おきにいり",order:"行きたい数順",sort:"pop",f:e=>!!LIKED[e.name]},
+];
+const state={tab:"all"};
+function currentList(){
+  const tab=TABS.find(t=>t.id===state.tab);
+  let l=VISIBLE.filter(e=>tab.f(e));
+  l.sort((a,b)=>{
+    if(tab.sort==="pop")return likeCount(b)-likeCount(a);
+    if(tab.sort==="smart"){const rs=rankStatus(a)-rankStatus(b);if(rs)return rs;
+      const av=a.start||"9999-99-99",bv=b.start||"9999-99-99";if(av!==bv)return av.localeCompare(bv);return likeCount(b)-likeCount(a);}
+    const av=a.start||"9999-99-99",bv=b.start||"9999-99-99";return av.localeCompare(bv);
+  });
+  return l;
+}
+const heartSVG=on=>`<svg viewBox="0 0 24 24" fill="${on?'#f4326e':'none'}" stroke="${on?'#f4326e':'#c3ccd6'}" stroke-width="1.8"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+const siteLabel=e=>e.siteType==="official"?"主催・公式サイト":"詳細・関連サイト";
+function renderHero(){
+  const el=document.getElementById("hero");
+  const up=VISIBLE.filter(e=>["live","week","soon"].includes(statusOf(e))).sort((a,b)=>likeCount(b)-likeCount(a));
+  const top=up.slice(0,3);
+  if(!top.length){el.style.display="none";return;}
+  el.style.display="block";
+  el.innerHTML=`<h2>これから開催の人気TOP3</h2>`+top.map((e,i)=>`
+    <div class="hrow" onclick="openEvent('${e.name.replace(/'/g,"\\'")}')">
+      <div class="hrank">${i+1}</div>
+      <div class="hn2">${e.name} <span class="hd">${longDate(e)}・${e.station}</span></div>
+      <div class="hlike">♡${likeCount(e)}</div>
+    </div>`).join("");
+}
+function openEvent(name){
+  state.tab="all";render();
+  requestAnimationFrame(()=>{const it=document.querySelector(`.item[data-name="${CSS.escape(name)}"]`);
+    if(it){it.classList.add("open");it.scrollIntoView({behavior:"smooth",block:"center"});}});
+}
+function renderLanding(){
+  const el=document.getElementById("landCard");if(!el)return;
+  let list=VISIBLE.filter(inThisWeek).sort((a,b)=>likeCount(b)-likeCount(a));
+  if(!list.length)list=VISIBLE.filter(e=>["live","week","soon"].includes(statusOf(e))).sort((a,b)=>likeCount(b)-likeCount(a));
+  const top=list.slice(0,3);
+  if(!top.length){el.style.display="none";return;}
+  el.style.display="block";
+  el.innerHTML='<div class="lph">今週開催の人気の盆踊り</div>'+top.map(e=>{
+    const esc=e.name.replace(/'/g,"\\'");
+    return `<div class="lrow"><div class="lri" onclick="openEvent('${esc}')"><div class="lrt">${e.name}</div><div class="lrm">${longDate(e)}・${e.station}</div></div><button class="lrb" onclick="shareSheet('${esc}')">誘う</button></div>`;
+  }).join("");
+}
+function scrollToList(){document.getElementById("bar").scrollIntoView({behavior:"smooth"});}
+function render(){
+  renderLanding();
+  renderHero();
+  updateDoneCount();
+  renderTagbar();
+  document.getElementById("tabs").innerHTML=TABS.map(t=>{
+    const n=VISIBLE.filter(t.f).length;
+    return `<div class="tab ${t.id===state.tab?'on':''}" data-id="${t.id}">${t.label}<span class="n">${n}</span></div>`;
+  }).join("");
+  document.querySelectorAll(".tab").forEach(el=>el.onclick=()=>{state.tab=el.dataset.id;render();window.scrollTo({top:0})});
+  const list=currentList();
+  document.getElementById("count").textContent=`${list.length}件`;
+  document.getElementById("orderLabel").textContent="並び："+TABS.find(t=>t.id===state.tab).order;
+  const emptyEl=document.getElementById("empty");emptyEl.style.display=list.length?"none":"block";emptyEl.textContent=state.tab==="liked"?"「おきにいり」はまだ空です。気になる盆踊りのハートを押そう。":"該当する盆踊りがありません。";
+  document.getElementById("list").innerHTML=list.map(e=>{
+    const st=ST[statusOf(e)],liked=!!LIKED[e.name];
+    const esc=e.name.replace(/'/g,"\\'");
+    const songVal=e.songs?e.songs:'<span style="color:var(--sub)">情報募集中（分かる方は教えてください）</span>';
+  const timeVal=timeOf(e),summaryVal=summaryOf(e);
+    return `<div class="item" data-name="${e.name}">
+      <div class="itop" onclick="toggleDetail(this)">
+        <div class="dt${e.start?'':' none'}">${shortDate(e)}</div>
+        <div class="nm">
+          <div class="t">${e.name}</div>
+          <div class="s"><span class="bdg ${st.c}">${st.t}</span>${DONE[e.name]?'<span class="bdg done">済</span>':''}${e.station}・${e.area}${e.kai?" ・"+e.kai:""}</div>${(()=>{const tg=tagsOf(e).slice(0,3);return tg.length?`<div class="rowtags">${tg.map(t=>`<span>${t}</span>`).join("")}</div>`:"";})()}
+        </div>
+        <button class="like ${liked?'on locked':''}" ${liked?'disabled':''} onclick="event.stopPropagation();addLike('${esc}',this)" aria-label="行きたい">
+          ${heartSVG(liked)}<span class="hn">${likeCount(e)}</span>
+        </button>
+        <span class="exp">▾</span>
+      </div>
+      <div class="detail">
+        <dl class="info">
+          <div><dt>会場</dt><dd>${e.venue}</dd></div>
+          <div><dt>最寄</dt><dd>${e.station}・${e.area}</dd></div>
+          <div><dt>時間</dt><dd>${timeOf(e)}</dd></div>
+        </dl>
+        <div class="acts">
+          <div class="btn" onclick="event.stopPropagation();openPage('${esc}')">詳細を見る</div>
+          <div class="btn primary" onclick="event.stopPropagation();shareSheet('${esc}')">友達を誘う</div>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+function toggleDetail(el){el.closest(".item").classList.toggle("open");}
+function toggleSong(el){const box=el.closest(".detail").querySelector(".songs");const o=box.style.display!=="none";box.style.display=o?"none":"block";el.textContent=o?"♪ 踊れる曲":"♪ 閉じる";}
+function addLike(name,btn){
+  if(LIKED[name]){toast("すでに「行きたい」済みです");return;}
+  LIKED[name]=true;saveLikes();hitRemote(name);
+  toast("「行きたい」に追加しました♡（1回のみ）");
+  const tabSort=TABS.find(t=>t.id===state.tab).sort;
+  if(tabSort==="pop"||tabSort==="smart"||COUNTER_ENDPOINT){render();}
+  else{const e=VISIBLE.find(x=>x.name===name);btn.classList.add("on","locked");btn.disabled=true;
+    btn.querySelector("svg").outerHTML=heartSVG(true);btn.querySelector(".hn").textContent=likeCount(e);}
+}
+let curShare=null;
+const inviteURL=e=>APP_URL||e.site;
+const inviteText=e=>`${e.name}｜${longDate(e)}\n日本最大級の盆踊り情報サイト「おどったー」\n${inviteURL(e)}`;
+const curShareE=()=>VISIBLE.find(x=>x.name===curShare);
+function shareSheet(name){curShare=name;const e=VISIBLE.find(x=>x.name===name);if(!e)return;
+  document.getElementById("shName").textContent=`${e.name}｜${longDate(e)}`;
+  document.getElementById("nativeShareBtn").style.display=navigator.share?"block":"none";
+  document.getElementById("share").classList.add("open");}
+function closeShare(){document.getElementById("share").classList.remove("open");}
+function copyInvite(){const e=curShareE();if(!e)return;const t=inviteText(e);
+  if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>toast("コピーしました。LINEに貼り付けて送ってね")).catch(()=>toast("コピーできませんでした"));}
+  else toast("コピーに対応していません");}
+function lineInvite(){const e=curShareE();if(!e)return;const t=inviteText(e);
+  window.open("https://line.me/R/msg/text/?"+encodeURIComponent(t),"_blank");}
+function nativeShare(){const e=curShareE();if(!e||!navigator.share)return;
+  navigator.share({title:"おどったー",text:inviteText(e)}).catch(()=>{});}
+function rr(x,X,Y,W,H,R){x.beginPath();x.moveTo(X+R,Y);x.arcTo(X+W,Y,X+W,Y+H,R);x.arcTo(X+W,Y+H,X,Y+H,R);x.arcTo(X,Y+H,X,Y,R);x.arcTo(X,Y,X+W,Y,R);x.closePath();}
+function wrap(x,text,X,Y,maxW,lh){const cs=[...text];let line="",yy=Y;for(const ch of cs){const t=line+ch;if(x.measureText(t).width>maxW&&line){x.fillText(line,X,yy);line=ch;yy+=lh;}else line=t;}if(line)x.fillText(line,X,yy);return yy;}
+function drawCard(e){
+  const c=document.getElementById("shCanvas");c.width=1080;c.height=1920;
+  const x=c.getContext("2d");
+  const g=x.createLinearGradient(0,0,0,1920);g.addColorStop(0,"#3cb0f7");g.addColorStop(1,"#1183cf");
+  x.fillStyle=g;x.fillRect(0,0,1080,1920);
+  x.textAlign="center";x.fillStyle="#fff";
+  x.font="italic 900 150px 'Hiragino Sans','Yu Gothic',sans-serif";
+  x.fillText("おどったー",540,250);
+  x.font="italic 60px Georgia,'Times New Roman',serif";x.fillStyle="rgba(255,255,255,.96)";
+  x.fillText("Shall we BON dance?",540,340);
+  x.fillStyle="#fff";rr(x,70,430,940,760,44);x.fill();
+  x.textAlign="left";
+  x.fillStyle="#1a86d0";x.font="bold 40px sans-serif";
+  x.fillText("この盆踊り、一緒に行かない？",118,528);
+  x.fillStyle="#0f1419";x.font="900 66px 'Hiragino Sans',sans-serif";
+  let yy=wrap(x,e.name,118,628,830,82)+60;
+  x.fillStyle="#5b7083";x.font="42px sans-serif";
+  x.fillText("日程　"+longDate(e),118,yy);yy+=66;
+  yy=wrap(x,"会場　"+e.venue,118,yy,830,54)+66;
+  x.fillText("最寄　"+e.station,118,yy);yy+=66;
+  x.fillText("時間　"+timeOf(e),118,yy);
+  x.textAlign="center";x.fillStyle="rgba(255,255,255,.96)";x.font="bold 36px 'Hiragino Sans',sans-serif";
+  x.fillText("おどったー｜日本最大級の盆踊り情報サイト",540,1250);
+  // 下1/3（約1290〜1920）は背景色のみ＝自分で文字入れ用に空ける
+  return c;
+}
+async function saveImage(){
+  const e=curShareE();if(!e)return;const c=drawCard(e);
+  c.toBlob(async(blob)=>{
+    if(!blob){toast("画像の生成に失敗しました");return;}
+    const file=new File([blob],(e.name||"odottar")+".png",{type:"image/png"});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){
+      try{await navigator.share({files:[file],text:inviteText(e)});return;}catch(err){}
+    }
+    const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=(e.name||"odottar")+".png";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+    toast("画像を保存しました。Instagramに投稿できます");
+  },"image/png");
+}
+let tT;function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(tT);tT=setTimeout(()=>t.classList.remove("show"),1600);}
+/* ===== 行った（done）コレクション ===== */
+const DKEY="odottar_done_v1";
+let DONE={};try{DONE=JSON.parse(localStorage.getItem(DKEY)||"{}")}catch(e){}
+function saveDone(){try{localStorage.setItem(DKEY,JSON.stringify(DONE))}catch(e){}}
+const escapeHtml=s=>(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function toggleDone(name){
+  if(DONE[name])delete DONE[name]; else DONE[name]={y:2026};
+  const on=!!DONE[name]; saveDone(); render();
+  toast(on?"「行った」に記録しました":"「行った」を取り消しました");
+}
+function updateDoneCount(){const el=document.getElementById("doneN");if(el)el.textContent=Object.keys(DONE).length;}
+const doneList=()=>DATA.filter(e=>DONE[e.name]);
+function openCollection(){
+  const list=doneList();
+  document.getElementById("collList").innerHTML=list.length
+    ? list.map(e=>`<div class="post"><div class="ph"><b>${escapeHtml(e.name)}</b><span>${(DONE[e.name].y||2026)}年に行った</span></div><div class="pt">${longDate(e)}・${escapeHtml(e.venue)}</div></div>`).join("")
+    : '<div class="thempty">まだ「行った」がありません。<br>各盆踊りの詳細で「行った」を記録しよう</div>';
+  document.getElementById("coll").classList.add("open");
+}
+function closeCollection(){document.getElementById("coll").classList.remove("open");}
+function collectionText(){const list=doneList();if(!list.length)return"";
+  return "私が行った盆踊り\n"+list.map(e=>`・${e.name}（${DONE[e.name].y||2026}）`).join("\n")+"\n#おどったー #盆踊り #ShallWeBONdance";}
+function shareCollection(mode){
+  const list=doneList();if(!list.length){toast("先に「行った」を記録してください");return;}
+  if(mode==="line")window.open("https://line.me/R/msg/text/?"+encodeURIComponent(collectionText()),"_blank");
+  else if(mode==="copy"){if(navigator.clipboard)navigator.clipboard.writeText(collectionText()).then(()=>toast("コピーしました。友達に送ってね"));}
+  else drawCollection(list);
+}
+function drawCollection(list){
+  const c=document.getElementById("shCanvas");c.width=1080;c.height=1350;
+  const x=c.getContext("2d");
+  const g=x.createLinearGradient(0,0,0,1350);g.addColorStop(0,"#1da1f2");g.addColorStop(1,"#0d6ba8");
+  x.fillStyle=g;x.fillRect(0,0,1080,1350);
+  x.textAlign="center";x.fillStyle="#fff";x.font="bold 54px sans-serif";x.fillText("私の盆踊りコレクション",540,128);
+  x.font="32px sans-serif";x.fillStyle="rgba(255,255,255,.9)";x.fillText("Shall we BON dance? ｜ おどったー",540,180);
+  x.fillStyle="#fff";rr(x,60,230,960,1010,40);x.fill();
+  x.textAlign="left";x.fillStyle="#0f1419";x.font="bold 46px sans-serif";x.fillText(`行った盆踊り ${list.length}件`,110,318);
+  let yy=400;x.font="37px sans-serif";
+  list.slice(0,14).forEach(e=>{x.fillStyle="#0f1419";x.fillText(""+(DONE[e.name].y||2026)+" "+e.name,110,yy);yy+=62;});
+  if(list.length>14){x.fillStyle="#5b7083";x.fillText(`ほか ${list.length-14}件`,110,yy);}
+  c.toBlob(async(blob)=>{if(!blob)return;const file=new File([blob],"my-bonodori.png",{type:"image/png"});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],text:collectionText()});return;}catch(e){}}
+    const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="my-bonodori.png";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+    toast("画像を保存しました。Instagramに投稿できます");
+  },"image/png");
+}
+
+function initAds(){
+  if(!ADSENSE_CLIENT)return;
+  const sc=document.createElement("script");sc.async=true;sc.crossOrigin="anonymous";
+  sc.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="+ADSENSE_CLIENT;
+  document.head.appendChild(sc);
+  document.querySelectorAll(".adslot").forEach(el=>{
+    el.innerHTML=`<ins class="adsbygoogle" style="display:block" data-ad-client="${ADSENSE_CLIENT}" data-ad-slot="${ADSENSE_SLOT}" data-ad-format="auto" data-full-width-responsive="true"></ins>`;
+    try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}
+  });
+}
+/* ===== 特徴タグ ===== */
+function tagsOf(e){
+  const t=new Set();
+  const f=[e.feature,e.venue,e.scale,e.name,e.songs].join(" ");
+  if(e.beginner)t.add("初心者OK");
+  if(/飛び入り/.test(f))t.add("飛び入りOK");
+  if(/屋台|模擬店|グルメ|出店|縁日/.test(f))t.add("屋台充実");
+  if(/公園|馬事公苑|広場/.test(e.venue))t.add("公園");
+  if(/親水|隅田|川|竪川/.test(e.venue))t.add("川沿い");
+  if(/神社|明神|地蔵|本願寺|靖国|念仏/.test(f))t.add("寺社");
+  if(/駅前|ロータリー|SL広場|西口|セントラルパーク|徒歩[1-5]分|109前|駅東口/.test(f))t.add("駅近");
+  if(/アニソン|アニメソング/.test(f))t.add("アニソン盆踊り");
+  if(/河内音頭/.test(f))t.add("河内音頭");
+  if(/中野音頭|渋谷音頭|自由が丘小唄|新橋音頭|丸の内音頭|六本人|築地音頭|大江戸助六/.test(f))t.add("ご当地音頭");
+  if(/最大級|万人|7万|100万|30万|6万|大規模/.test(e.scale)||/大規模/.test(f))t.add("大規模");
+  if(/DJ|ゲスト|BONJOVI|KOO|盆ジョヴィ/.test(f))t.add("有名人・DJゲスト");
+  if(/浴衣/.test(f))t.add("浴衣が多い");
+  if(/こども|子ども|子連れ|キャラクター|ソラカラ|すがもん/.test(f))t.add("子連れOK");
+  if(/スカイツリー|夜景|ライトアップ|ヒルズ|直下/.test(f))t.add("夜景");
+  if(/ソラマチ|ヒルズ|セントラルパーク|109|ビル|タウン/.test(f))t.add("都心・ビル街");
+  return [...t];
+}
+const allTags=()=>{const c={};VISIBLE.forEach(e=>tagsOf(e).forEach(t=>c[t]=(c[t]||0)+1));return Object.entries(c).sort((a,b)=>b[1]-a[1]).map(x=>x[0]);};
+function renderTagbar(){
+  const el=document.getElementById("tagbar");if(!el)return;
+  el.innerHTML=`<div class="tchip ${!state.tag?'on':''}" onclick="setTag('')">すべて</div>`+
+    allTags().map(t=>`<div class="tchip ${state.tag===t?'on':''}" onclick="setTag('${t.replace(/'/g,"\\'")}')">${t}</div>`).join("");
+}
+function setTag(t){state.tag=(state.tag===t)?"":t;render();window.scrollTo({top:document.querySelector(".tagbar").offsetTop-4,behavior:"smooth"});}
+function filterTag(t){state.tag=t;closePage();render();window.scrollTo({top:document.querySelector(".tagbar").offsetTop-4});}
+
+/* ===== 個別ページ ===== */
+let pageName=null;
+function openPage(name){location.hash="#e/"+encodeURIComponent(name);}
+function closePage(){if(location.hash.startsWith("#e/"))history.back();else route();}
+const TIMEMAP={
+"築地本願寺納涼盆踊り大会":"19:00〜21:00（最終日は18:00〜20:30）",
+"中野駅前大盆踊り大会":"10:00〜21:00",
+"恵比寿駅前盆踊り大会":"17:30〜21:30",
+"すみだ錦糸町河内音頭大盆踊り":"17:30〜21:00",
+"新橋こいち祭":"15:00〜20:30",
+"東京高円寺阿波おどり":"17:00〜20:00",
+"自由が丘納涼盆踊り大会":"18:00〜21:00",
+"みたままつり（靖国神社）":"18:00〜21:30頃",
+"奥浅草盆踊り":"14:00〜21:00（盆踊りは18:00〜）",
+"せたがやふるさと区民まつり":"11:00〜21:00",
+"渋谷盆踊り":"18:00〜21:30",
+"墨田区民納涼民踊大会":"18:00〜20:00",
+"新小岩納涼盆踊り大会":"盆踊り18:00〜20:30（模擬店16:00〜）",
+"巣鴨納涼盆踊り":"18:00〜20:45",
+"神田明神納涼祭り":"16:30〜20:30頃（日により異なる）",
+"隅田川おどりフェスタ":"15:00〜20:30",
+"SHIBUYA MIYASHITA PARK BON DANCE":"13:00〜21:00",
+"納涼盆踊り大会（武蔵野市）":"17:00〜19:00",
+"下北沢盆踊り":"盆踊り16:00〜（露店13:00／ステージ14:00〜）"
+};
+const timeOf=e=>e.time||TIMEMAP[e.name]||"情報募集中";
+const SUMMARYMAP={
+"築地本願寺納涼盆踊り大会":"築地本願寺の境内で毎年開催される都内最大級の納涼盆踊り。築地場外市場の名店が屋台を出しグルメも充実。最終日の仮装大会や大江戸助六太鼓の奉納が名物で、誰でも飛び入りで輪に加われる。",
+"中野駅前大盆踊り大会":"中野セントラルパークで開かれる大規模盆踊り。中野区民謡連盟の和楽器生演奏に加えDJ KOO等ゲストも登場し、伝統とフェスを融合。約7万人が訪れ『盆ジョヴィ』の愛称でも知られる。",
+"すみだ錦糸町河内音頭大盆踊り":"竪川親水公園で行われる、東京では数少ない全編生唄・生演奏の河内音頭大盆踊り。独特のリズムで輪が広がる、下町の熱気あふれる二日間。",
+"東京高円寺阿波おどり":"高円寺の街を舞台にした東京を代表する阿波おどり。約100万人が訪れる夏の風物詩で、連による迫力の演舞が商店街を練り歩く（※盆踊りとは別系統）。",
+"恵比寿駅前盆踊り大会":"JR恵比寿駅西口広場で開かれる駅前の盆踊り大会。仕事帰りにも立ち寄りやすく、地元に長く愛される恒例行事。",
+"自由が丘納涼盆踊り大会":"1974年から続く自由が丘の盆踊り。駅前ロータリーで何重もの輪をつくり、炭坑節などの定番にJ-POPの新曲も交え、初心者も踊りやすい大会。",
+"みたままつり（靖国神社）":"靖国神社の境内を3万個超の献灯が照らす夏祭り。みこし振りや民踊(盆踊り)、青森ねぶたなど多彩な催しで、例年約30万人が訪れる。",
+"渋谷盆踊り":"SHIBUYA109前の路上に櫓を建てて行う渋谷ならではの盆踊り。渋谷音頭などご当地曲に定番も交え、外国人観光客も一緒に輪になる。"
+};
+const summaryOf=e=>e.summary||SUMMARYMAP[e.name]||e.feature;
+function renderPage(name){
+  const e=DATA.find(x=>x.name===name);if(!e)return;
+  pageName=name;
+  document.getElementById("pTitle").textContent=e.name;
+  const st=ST[statusOf(e)],esc=name.replace(/'/g,"\\'"),liked=!!LIKED[e.name];
+  const tags=tagsOf(e);
+  const songVal=e.songs?e.songs:'<span style="color:var(--sub)">情報募集中（分かる方は教えてください）</span>';
+  document.getElementById("pBody").innerHTML=`
+    <div class="phero">
+      <div class="pdt"><span class="bdg ${st.c}">${st.t}</span>${e.kai?" "+e.kai:""}</div>
+      <div class="pname">${e.name}</div>
+      <div class="pdate">${longDate(e)}</div>
+    </div>
+    <div class="psec">概要</div>
+    <div class="pnote">${summaryVal}</div>
+    <div class="psec">開催情報</div>
+    <div class="pcard">
+      <div class="pitem"><span class="pl">開催時間</span><span class="pv">${timeVal}</span></div>
+      <div class="pitem"><span class="pl">会場</span><span class="pv">${e.venue}</span></div>
+      <div class="pitem"><span class="pl">最寄駅</span><span class="pv">${e.station}</span></div>
+      <div class="pitem"><span class="pl">エリア</span><span class="pv">${e.area}</span></div>
+      <div class="pitem"><span class="pl">規模</span><span class="pv">${e.scale}</span></div>
+      <div class="pitem"><span class="pl">踊れる曲</span><span class="pv">${songVal}</span></div>
+    </div>
+    <div class="pacts">
+      <div class="btn primary" onclick="shareSheet('${esc}')">友達を誘う</div>
+      <button class="btn heartbtn ${liked?'on':''}" onclick="pageLike('${esc}')">${liked?'\u2665 行きたい済':'\u2661 行きたい'} ${likeCount(e)}</button>
+    </div>
+    <a class="pofficial2" href="${e.site}" target="_blank" rel="noopener">運営・公式サイト</a>
+    ${ADSENSE_CLIENT?`<div class="adslot"><ins class="adsbygoogle" style="display:block" data-ad-client="${ADSENSE_CLIENT}" data-ad-slot="${ADSENSE_SLOT}" data-ad-format="auto" data-full-width-responsive="true"></ins></div>`:'<div class="adph">広告スペース（AdSense）</div>'}
+    <a class="formlink" href="${FORM_URL||'#'}" target="_blank" rel="noopener">この盆踊りの情報を提供・修正する</a>`;
+  if(ADSENSE_CLIENT){try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(err){}}
+}
+function pageLike(name){if(!LIKED[name]){LIKED[name]=true;saveLikes();hitRemote(name);toast("行きたいに追加しました");}renderPage(name);}
+function pageDone(name){if(DONE[name])delete DONE[name];else DONE[name]={y:2026};saveDone();renderPage(name);}
+function route(){
+  const h=location.hash;const pg=document.getElementById("page");
+  if(h.startsWith("#e/")){const nm=decodeURIComponent(h.slice(3));if(DATA.find(x=>x.name===nm)){renderPage(nm);pg.classList.add("open");pg.scrollTop=0;return;}}
+  pg.classList.remove("open");
+}
+window.addEventListener("hashchange",route);
+
+function parseCSV(t){const rows=[];let row=[],cur="",q=false;
+  for(let i=0;i<t.length;i++){const c=t[i];
+    if(q){if(c==='"'){if(t[i+1]==='"'){cur+='"';i++;}else q=false;}else cur+=c;}
+    else{if(c==='"')q=true;else if(c===",")row.push(cur),cur="";else if(c==="\n")row.push(cur),rows.push(row),row=[],cur="";else if(c==="\r"){}else cur+=c;}}
+  if(cur!==""||row.length)row.push(cur),rows.push(row);
+  return rows;}
+async function loadSheet(){
+  try{const r=await fetch(SHEET_CSV_URL);const t=await r.text();
+    const rows=parseCSV(t).filter(r=>r.length>1);const head=rows.shift().map(h=>h.trim());
+    const arr=rows.map(r=>{const o={};head.forEach((h,i)=>o[h]=(r[i]||"").trim());o.pop=parseInt(o.pop||"0",10)||0;return o;}).filter(o=>o.name);
+    if(arr.length){DATA=arr;rebuild();}
+  }catch(e){}
+}
+function boot(){render();loadRemote();initAds();route();var _ff=document.getElementById("formFooter");if(_ff)_ff.href=FORM_URL||"#";}
+if(SHEET_CSV_URL){loadSheet().then(boot).catch(boot);}else{boot();}
+</script>
+</body>
+</html>
