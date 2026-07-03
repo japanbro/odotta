@@ -364,6 +364,12 @@ const KEY="odottar_kininaru_v1";
 let LIKED={};try{LIKED=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
 const REMOTE={};
 function saveLikes(){try{localStorage.setItem(KEY,JSON.stringify(LIKED))}catch(e){}}
+const DONE_KEY="odottar_done_v1";
+let DONE={};try{DONE=JSON.parse(localStorage.getItem(DONE_KEY)||"{}")}catch(e){}
+function saveDone(){try{localStorage.setItem(DONE_KEY,JSON.stringify(DONE))}catch(e){}}
+let _toastT=null;
+function toast(msg){const el=document.getElementById("toast");if(!el)return;el.textContent=msg;el.classList.add("show");clearTimeout(_toastT);_toastT=setTimeout(()=>el.classList.remove("show"),2200);}
+function collectionText(){const e=(typeof curShareE==="function")?curShareE():null;return e?inviteText(e):"おどったー｜日本最大級の盆踊り情報サイト｜2026年盆踊り日程一覧";}
 function likeCount(e){if(COUNTER_ENDPOINT&&REMOTE[e.name]!=null)return e.pop+REMOTE[e.name];return e.pop+(LIKED[e.name]?1:0);}
 async function loadRemote(){if(!COUNTER_ENDPOINT)return;try{const r=await fetch(COUNTER_ENDPOINT+"/counts");Object.assign(REMOTE,await r.json());render();}catch(e){}}
 async function hitRemote(n){if(!COUNTER_ENDPOINT)return;try{const r=await fetch(COUNTER_ENDPOINT+"/hit?k="+encodeURIComponent(n),{method:"POST"});const j=await r.json();if(j&&j.count!=null){REMOTE[n]=j.count;render();}}catch(e){}}
@@ -425,7 +431,6 @@ function scrollToList(){document.getElementById("bar").scrollIntoView({behavior:
 function render(){
   renderLanding();
   renderHero();
-  updateDoneCount();
   renderTagbar();
   document.getElementById("tabs").innerHTML=TABS.map(t=>{
     const n=VISIBLE.filter(t.f).length;
@@ -476,7 +481,7 @@ function addLike(name,btn){
   saveLikes();render();
 }
 let curShare=null;
-const inviteURL=e=>APP_URL?APP_URL+"/event/"+(e.id||encodeURIComponent(e.name)):e.site;
+const inviteURL=e=>APP_URL?APP_URL+"#e/"+(e.id||encodeURIComponent(e.name)):e.site;
 const dateSlash=e=>{if(!e.start)return"日程調査中";const f=x=>`${x.getFullYear()}/${String(x.getMonth()+1).padStart(2,"0")}/${String(x.getDate()).padStart(2,"0")}(${WD[x.getDay()]})`;return (e.end&&e.end!==e.start)?f(d(e.start))+"～"+f(d(e.end)):f(d(e.start));};
 const inviteText=e=>`【盆踊りのお誘い】\nShall we BONdance?\n${e.kai||""}${e.name}\n${dateSlash(e)}\n\nおどったー｜日本最大級の盆踊り情報サイト\n${inviteURL(e)}`;
 const curShareE=()=>VISIBLE.find(x=>x.name===curShare);
@@ -599,8 +604,8 @@ function filterTag(t){state.tag=t;closePage();render();window.scrollTo({top:docu
 
 /* ===== 個別ページ ===== */
 let pageName=null;
-function openPage(name){const e=DATA.find(x=>x.name===name);const id=(e&&e.id?e.id:encodeURIComponent(name));history.pushState({ev:id},"","/event/"+id);route();}
-function closePage(){history.pushState({},"","/");route();}
+function openPage(name){const e=DATA.find(x=>x.name===name);const id=(e&&e.id?e.id:encodeURIComponent(name));location.hash="#e/"+id;route();}
+function closePage(){if(location.hash.startsWith("#e/"))location.hash="";else route();}
 const TIMEMAP={
 "サンシャインシティ納涼盆踊り大会":"19:00〜21:15（雨天中止）",
 "SHIBUYA MIYASHITA PARK BON DANCE":"13:00〜21:00（雨天中止）",
@@ -674,9 +679,9 @@ function pageLike(name){if(!LIKED[name]){LIKED[name]=true;saveLikes();hitRemote(
 function pageDone(name){if(DONE[name])delete DONE[name];else DONE[name]={y:2026};saveDone();renderPage(name);}
 function route(){
   const pg=document.getElementById("page");
-  const m=location.pathname.match(/\/event\/([^\/]+)/);
-  let key=m?decodeURIComponent(m[1]):(location.hash.startsWith("#e/")?location.hash.slice(3):"");
-  if(key){const e=DATA.find(x=>x.id===key)||DATA.find(x=>x.name===decodeURIComponent(key));if(e){renderPage(e.name);pg.classList.add("open");pg.scrollTop=0;return;}}
+  let key=location.hash.startsWith("#e/")?location.hash.slice(3):(location.pathname.match(/\/event\/([^\/]+)/)||[])[1]||"";
+  key=decodeURIComponent(key);
+  if(key){const e=DATA.find(x=>x.id===key)||DATA.find(x=>x.name===key);if(e){renderPage(e.name);pg.classList.add("open");pg.scrollTop=0;return;}}
   pg.classList.remove("open");
 }
 window.addEventListener("popstate",route);
