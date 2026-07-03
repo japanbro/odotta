@@ -245,10 +245,9 @@
     <div style="padding:14px">
       <div id="shName" class="shname"></div>
       <div class="shbtns">
+        <button class="shbtn insta" onclick="saveImage()">お誘い画像を見てみる</button>
         <button class="shbtn line" onclick="lineInvite()">LINEで送る</button>
-        <button class="shbtn" onclick="copyInvite()">コピー（LINE等に貼り付け）</button>
-        <button class="shbtn insta" onclick="saveImage()">画像を保存（Instagram用）</button>
-        <button class="shbtn" id="nativeShareBtn" onclick="nativeShare()">その他アプリで送る</button>
+        <button class="shbtn" onclick="copyInvite()">コピー</button>
       </div>
       <canvas id="shCanvas" width="1080" height="1920" style="display:none"></canvas>
     </div>
@@ -461,7 +460,8 @@ function addLike(name,btn){
 }
 let curShare=null;
 const inviteURL=e=>APP_URL?APP_URL+"#e/"+encodeURIComponent(e.name):e.site;
-const inviteText=e=>`${e.name}｜${longDate(e)}\n日本最大級の盆踊り情報サイト「おどったー」\n${inviteURL(e)}`;
+const dateSlash=e=>{if(!e.start)return"日程調査中";const f=x=>`${x.getFullYear()}/${String(x.getMonth()+1).padStart(2,"0")}/${String(x.getDate()).padStart(2,"0")}(${WD[x.getDay()]})`;return (e.end&&e.end!==e.start)?f(d(e.start))+"～"+f(d(e.end)):f(d(e.start));};
+const inviteText=e=>`【盆踊りのお誘い】Shall we BONdance?\n${e.kai||""}${e.name}\n${dateSlash(e)}\n\nおどったー｜日本最大級の盆踊り情報サイト\n${inviteURL(e)}`;
 const curShareE=()=>VISIBLE.find(x=>x.name===curShare);
 function shareSheet(name){curShare=name;const e=VISIBLE.find(x=>x.name===name);if(!e)return;
   document.getElementById("shName").textContent=`${e.name}｜${longDate(e)}`;
