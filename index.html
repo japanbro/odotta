@@ -294,7 +294,7 @@
 </div>
 <div class="toast" id="toast"></div>
 <script>
-const COUNTER_ENDPOINT="https://xxx.workers.dev";
+const COUNTER_ENDPOINT="";  /* Cloudflare WorkerのURLを設定すると いいね数合算が有効化。空なら無効(端末内カウントのみ)。例: "https://odottar-counter.xxx.workers.dev" */
 /* Google AdSense。空なら広告なし。取得後にIDを設定。 */
 const ADSENSE_CLIENT="";  /* 例: "ca-pub-1234567890123456" */
 const ADSENSE_SLOT="";
@@ -481,7 +481,7 @@ function addLike(name,btn){
   saveLikes();render();
 }
 let curShare=null;
-const inviteURL=e=>APP_URL?APP_URL+"#e/"+(e.id||encodeURIComponent(e.name)):e.site;
+const inviteURL=e=>APP_URL?APP_URL+"/#e/"+(e.id||encodeURIComponent(e.name)):e.site;
 const dateSlash=e=>{if(!e.start)return"日程調査中";const f=x=>`${x.getFullYear()}/${String(x.getMonth()+1).padStart(2,"0")}/${String(x.getDate()).padStart(2,"0")}(${WD[x.getDay()]})`;return (e.end&&e.end!==e.start)?f(d(e.start))+"～"+f(d(e.end)):f(d(e.start));};
 const inviteText=e=>`【盆踊りのお誘い】\nShall we BONdance?\n${e.kai||""}${e.name}\n${dateSlash(e)}\n\nおどったー｜日本最大級の盆踊り情報サイト\n${inviteURL(e)}`;
 const curShareE=()=>VISIBLE.find(x=>x.name===curShare);
@@ -495,7 +495,7 @@ function copyInvite(){const e=curShareE();if(!e)return;const t=inviteText(e);
   if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>toast("コピーしました。LINEに貼り付けて送ってね")).catch(()=>toast("コピーできませんでした"));}
   else toast("コピーに対応していません");}
 function lineInvite(){const e=curShareE();if(!e)return;const t=inviteText(e);
-  window.open("https://line.me/R/msg/text/?"+encodeURIComponent(t),"_blank");}
+  window.open("https://line.me/R/msg/text/?"+encodeURIComponent(t),"_blank","noopener");}
 function nativeShare(){const e=curShareE();if(!e||!navigator.share)return;
   navigator.share({title:"おどったー",text:inviteText(e)}).catch(()=>{});}
 function rr(x,X,Y,W,H,R){x.beginPath();x.moveTo(X+R,Y);x.arcTo(X+W,Y,X+W,Y+H,R);x.arcTo(X+W,Y+H,X,Y+H,R);x.arcTo(X,Y+H,X,Y,R);x.arcTo(X,Y,X+W,Y,R);x.closePath();}
@@ -687,6 +687,9 @@ function route(){
 window.addEventListener("popstate",route);
 window.addEventListener("hashchange",route);
 
+/* 外部データ(Googleフォーム/CSV)取込時のサニタイズ用。ハードコードDATAには影響しない。 */
+function escHTML(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
+function safeURL(u){u=String(u||"").trim();return /^https?:\/\//i.test(u)?u:"";}
 function parseCSV(t){const rows=[];let row=[],cur="",q=false;
   for(let i=0;i<t.length;i++){const c=t[i];
     if(q){if(c==='"'){if(t[i+1]==='"'){cur+='"';i++;}else q=false;}else cur+=c;}
@@ -696,7 +699,7 @@ function parseCSV(t){const rows=[];let row=[],cur="",q=false;
 async function loadSheet(){
   try{const r=await fetch(SHEET_CSV_URL);const t=await r.text();
     const rows=parseCSV(t).filter(r=>r.length>1);const head=rows.shift().map(h=>h.trim());
-    const arr=rows.map(r=>{const o={};head.forEach((h,i)=>o[h]=(r[i]||"").trim());o.pop=parseInt(o.pop||"0",10)||0;return o;}).filter(o=>o.name);
+    const arr=rows.map(r=>{const o={};head.forEach((h,i)=>{const v=(r[i]||"").trim();o[h]=(h==="site")?safeURL(v):escHTML(v);});o.pop=parseInt(o.pop||"0",10)||0;return o;}).filter(o=>o.name);
     if(arr.length){DATA=arr;assignIds();rebuild();}
   }catch(e){}
 }
