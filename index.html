@@ -11,6 +11,7 @@
 <meta name="description" content="日本最大級の盆踊り情報サイト。2026年最新の盆踊り日程を掲載中。盆オドラーのための口コミサイト。">
 <meta property="og:title" content="おどったー｜日本最大級の盆踊り情報サイト｜2026年盆踊り日程一覧">
 <meta property="og:description" content="日本最大級の盆踊り情報サイト。2026年最新の盆踊り日程を掲載中。盆オドラーのための口コミサイト。">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2792766879613699" crossorigin="anonymous"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -298,7 +299,7 @@
 <script>
 const COUNTER_ENDPOINT="";  /* Cloudflare WorkerのURLを設定すると いいね数合算が有効化。空なら無効(端末内カウントのみ)。例: "https://odottar-counter.xxx.workers.dev" */
 /* Google AdSense。空なら広告なし。取得後にIDを設定。 */
-const ADSENSE_CLIENT="";  /* 例: "ca-pub-1234567890123456" */
+const ADSENSE_CLIENT="ca-pub-2792766879613699";
 const ADSENSE_SLOT="";
 /* おどったーの公開URL。設定すると誘いメッセージに露出。空なら主催サイトURL。 */
 const APP_URL="https://odottar.vercel.app";
@@ -565,9 +566,7 @@ function drawCollection(list){
 
 function initAds(){
   if(!ADSENSE_CLIENT)return;
-  const sc=document.createElement("script");sc.async=true;sc.crossOrigin="anonymous";
-  sc.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="+ADSENSE_CLIENT;
-  document.head.appendChild(sc);
+  /* adsbygoogle.jsは<head>で静的読み込み済み（二重読み込み防止のためここでは追加しない） */
   document.querySelectorAll(".adslot").forEach(el=>{
     el.innerHTML=`<ins class="adsbygoogle" style="display:block" data-ad-client="${ADSENSE_CLIENT}" data-ad-slot="${ADSENSE_SLOT}" data-ad-format="auto" data-full-width-responsive="true"></ins>`;
     try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}
