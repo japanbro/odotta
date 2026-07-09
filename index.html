@@ -13,14 +13,26 @@
 <meta name="description" content="日本最大級の盆踊り情報サイト。2026年最新の盆踊り日程を掲載中。盆オドラーのための口コミサイト。">
 <meta property="og:title" content="おどったー｜日本最大級の盆踊り情報サイト｜2026年盆踊り日程一覧">
 <meta property="og:description" content="日本最大級の盆踊り情報サイト。2026年最新の盆踊り日程を掲載中。盆オドラーのための口コミサイト。">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://odottar.com/">
+<meta property="og:image" content="https://odottar.com/assets/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://odottar.com/assets/ogp.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="assets/icons/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#eaf4fb;--card:#ffffff;--ink:#0f1419;--sub:#5b7083;--line:#e3eaef;--line2:#cfdee9;
     --accent:#1da1f2;--accentD:#1a8cd8;--tint:#e8f5fd;--like:#f4326e;--warnbg:#f2e7e7;--warn:#8a4141;--max:480px;}
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0}
   html,body{background:var(--bg);color:var(--ink);line-height:1.45;
-    font-family:"Hiragino Sans","Yu Gothic UI","Yu Gothic",-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased}
+    font-family:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic UI","Yu Gothic",-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased}
   .app{max-width:var(--max);margin:0 auto;background:var(--card);min-height:100vh}
   /* 全画面ランディング */
   .landing{min-height:40svh;color:#fff;position:relative;overflow:hidden;
@@ -40,10 +52,8 @@
   .lbrand{display:flex;align-items:center;gap:11px;z-index:1;margin:8px 0 2px}
   .llantern{font-size:2.5rem}
   .lkick{font-size:.66rem;font-weight:800;letter-spacing:.32em;opacity:.9;z-index:1}
-  .lname{display:inline-block;font-size:3.4rem;font-weight:900;letter-spacing:.02em;font-style:italic;transform:skewX(-8deg);-webkit-text-stroke:1.6px currentColor;text-stroke:1.6px currentColor;text-shadow:0 5px 18px rgba(4,30,55,.26);z-index:1;line-height:1.02}
-  .lslogan{font-family:"Great Vibes","Snell Roundhand","Apple Chancery","Segoe Script","Dancing Script",cursive;font-size:1.9rem;font-weight:400;font-style:normal;letter-spacing:.02em;opacity:.92;z-index:1;margin-top:0;line-height:1.1}
-  .lcatch{z-index:1;display:flex;flex-direction:column;gap:6px;align-items:center}
-  .ldef{font-size:.62rem;font-weight:600;letter-spacing:.06em;opacity:.66}
+  .lname{display:inline-block;font-size:3.4rem;font-weight:900;letter-spacing:.02em;text-shadow:0 5px 18px rgba(4,30,55,.26);z-index:1;line-height:1.02}
+  .lslogan{font-size:1.1rem;font-weight:800;letter-spacing:.05em;opacity:.92;z-index:1;margin-top:2px;line-height:1.1}
   .lsvc{font-size:.68rem;font-weight:600;letter-spacing:.05em;opacity:.72}
   .linvite{margin-top:8px;font-size:1.05rem;font-weight:800;z-index:1}
   .lcard{width:100%;max-width:344px;background:#fff;color:var(--ink);border-radius:18px;padding:15px 16px;text-align:left;
@@ -231,18 +241,17 @@
     <div class="lcorner">日本最大級の盆踊り情報サイト<br>2026年盆踊り日程一覧</div>
     <div class="lbrand"><span class="lname">おどったー</span></div>
     <div class="lslogan">Shall we BON dance?</div>
-    <div class="lcatch"><b class="ldef">盆オドラー、それは盆踊りを愛する人。</b></div>
     <div class="lpanel" id="landCard"></div>
   </section>
   <header class="bar" id="bar">
     <div class="tabs" id="tabs"></div>
   </header>
   <div class="hero" id="hero"></div>
-  <div class="adslot" id="ad1"></div>
   <div class="sortbar"><span id="count"></span><span id="orderLabel"></span></div>
   <div class="tagbar" id="tagbar"></div>
   <div class="list" id="list"></div>
   <div class="empty" id="empty" style="display:none"></div>
+  <div class="adslot" id="ad1"></div>
   <footer class="foot">
     <a class="formlink" id="formFooter" href="#" target="_blank" rel="noopener">盆踊りの情報を追加・修正する（Googleフォーム）</a>
     <div class="footcredit">おどったー｜日本最大級の盆踊り情報サイト｜2026年盆踊り日程一覧</div>
@@ -296,7 +305,7 @@
 </div>
 <div class="toast" id="toast"></div>
 <script>
-const COUNTER_ENDPOINT="https://xxx.workers.dev";
+const COUNTER_ENDPOINT="/api";
 /* Google AdSense。空なら広告なし。取得後にIDを設定。 */
 const ADSENSE_CLIENT="ca-pub-2792766879613699";  /* 例: "ca-pub-1234567890123456" */
 const ADSENSE_SLOT="";
@@ -567,7 +576,7 @@ function saveDone(){try{localStorage.setItem(DONE_KEY,JSON.stringify(DONE))}catc
 let _toastT=null;
 function toast(msg){const el=document.getElementById("toast");if(!el)return;el.textContent=msg;el.classList.add("show");clearTimeout(_toastT);_toastT=setTimeout(()=>el.classList.remove("show"),2200);}
 function collectionText(){const e=(typeof curShareE==="function")?curShareE():null;return e?inviteText(e):"おどったー｜日本最大級の盆踊り情報サイト｜2026年盆踊り日程一覧";}
-function likeCount(e){if(COUNTER_ENDPOINT&&REMOTE[e.name]!=null)return e.pop+REMOTE[e.name];return e.pop+(LIKED[e.name]?1:0);}
+function likeCount(e){if(COUNTER_ENDPOINT&&REMOTE[e.name]!=null)return REMOTE[e.name];return (LIKED[e.name]?1:0);}
 async function loadRemote(){if(!COUNTER_ENDPOINT)return;try{const r=await fetch(COUNTER_ENDPOINT+"/counts");Object.assign(REMOTE,await r.json());render();}catch(e){}}
 async function hitRemote(n){if(!COUNTER_ENDPOINT)return;try{const r=await fetch(COUNTER_ENDPOINT+"/hit?k="+encodeURIComponent(n),{method:"POST"});const j=await r.json();if(j&&j.count!=null){REMOTE[n]=j.count;render();}}catch(e){}}
 const inThisWeek=e=>["live","week"].includes(statusOf(e));
@@ -704,26 +713,23 @@ function drawCard(e){
   const g=x.createLinearGradient(0,0,0,1300);g.addColorStop(0,"#3cb0f7");g.addColorStop(1,"#1a97e6");
   x.fillStyle=g;x.fillRect(0,0,1080,1300);
   // 左上（トップと同じ）
-  x.textAlign="left";x.fillStyle="rgba(255,255,255,.9)";x.font="600 30px 'Hiragino Sans',sans-serif";
+  x.textAlign="left";x.fillStyle="rgba(255,255,255,.9)";x.font="600 30px 'M PLUS Rounded 1c','Hiragino Sans',sans-serif";
   x.fillText("日本最大級の盆踊り情報サイト",60,92);
   x.fillText("2026年盆踊り日程一覧",60,134);
   // ロゴ
   x.textAlign="center";x.fillStyle="#fff";
-  x.font="italic 900 168px 'Hiragino Sans','Yu Gothic',sans-serif";
+  x.font="900 168px 'M PLUS Rounded 1c','Hiragino Maru Gothic ProN','Hiragino Sans','Yu Gothic',sans-serif";
   x.fillText("おどったー",540,420);
   // スローガン
-  x.font="italic 74px Georgia,'Times New Roman',serif";x.fillStyle="rgba(255,255,255,.96)";
+  x.font="800 54px 'M PLUS Rounded 1c','Hiragino Sans',sans-serif";x.fillStyle="rgba(255,255,255,.96)";
   x.fillText("Shall we BON dance?",540,520);
-  // 盆オドラー
-  x.font="600 33px 'Hiragino Sans',sans-serif";x.fillStyle="rgba(255,255,255,.82)";
-  x.fillText("盆オドラー、それは盆踊りを愛する人。",540,586);
   // 白カード（展開情報）
   x.fillStyle="#fff";rr(x,70,660,940,600,40);x.fill();
   x.textAlign="left";
-  x.fillStyle="#0f1419";x.font="900 66px 'Hiragino Sans',sans-serif";
+  x.fillStyle="#0f1419";x.font="900 66px 'M PLUS Rounded 1c','Hiragino Sans',sans-serif";
   let yy=wrap(x,e.name,120,762,800,80)+34;
-  const row=(label,val)=>{yy+=78;x.fillStyle="#8a94a0";x.font="bold 38px 'Hiragino Sans',sans-serif";x.fillText(label,120,yy);
-    x.fillStyle="#0f1419";x.font="40px 'Hiragino Sans',sans-serif";x.fillText(val,300,yy);};
+  const row=(label,val)=>{yy+=78;x.fillStyle="#8a94a0";x.font="bold 38px 'M PLUS Rounded 1c','Hiragino Sans',sans-serif";x.fillText(label,120,yy);
+    x.fillStyle="#0f1419";x.font="40px 'M PLUS Rounded 1c','Hiragino Sans',sans-serif";x.fillText(val,300,yy);};
   row("日程",longDate(e).replace("2026年 ",""));
   row("会場",e.venue);
   row("最寄",e.station+"・"+e.area);
@@ -744,11 +750,11 @@ function drawCollection(list){
   const x=c.getContext("2d");
   const g=x.createLinearGradient(0,0,0,1350);g.addColorStop(0,"#1da1f2");g.addColorStop(1,"#0d6ba8");
   x.fillStyle=g;x.fillRect(0,0,1080,1350);
-  x.textAlign="center";x.fillStyle="#fff";x.font="bold 54px sans-serif";x.fillText("私の盆踊りコレクション",540,128);
-  x.font="32px sans-serif";x.fillStyle="rgba(255,255,255,.9)";x.fillText("Shall we BON dance? ｜ おどったー",540,180);
+  x.textAlign="center";x.fillStyle="#fff";x.font="bold 54px 'M PLUS Rounded 1c',sans-serif";x.fillText("私の盆踊りコレクション",540,128);
+  x.font="32px 'M PLUS Rounded 1c',sans-serif";x.fillStyle="rgba(255,255,255,.9)";x.fillText("Shall we BON dance? ｜ おどったー",540,180);
   x.fillStyle="#fff";rr(x,60,230,960,1010,40);x.fill();
-  x.textAlign="left";x.fillStyle="#0f1419";x.font="bold 46px sans-serif";x.fillText(`行った盆踊り ${list.length}件`,110,318);
-  let yy=400;x.font="37px sans-serif";
+  x.textAlign="left";x.fillStyle="#0f1419";x.font="bold 46px 'M PLUS Rounded 1c',sans-serif";x.fillText(`行った盆踊り ${list.length}件`,110,318);
+  let yy=400;x.font="37px 'M PLUS Rounded 1c',sans-serif";
   list.slice(0,14).forEach(e=>{x.fillStyle="#0f1419";x.fillText(""+(DONE[e.name].y||2026)+" "+e.name,110,yy);yy+=62;});
   if(list.length>14){x.fillStyle="#5b7083";x.fillText(`ほか ${list.length-14}件`,110,yy);}
   c.toBlob(async(blob)=>{if(!blob)return;const file=new File([blob],"my-bonodori.png",{type:"image/png"});
@@ -759,7 +765,7 @@ function drawCollection(list){
 }
 
 function initAds(){
-  if(!ADSENSE_CLIENT)return;
+  if(!ADSENSE_CLIENT||!ADSENSE_SLOT)return;
   const sc=document.createElement("script");sc.async=true;sc.crossOrigin="anonymous";
   sc.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="+ADSENSE_CLIENT;
   document.head.appendChild(sc);
