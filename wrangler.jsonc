@@ -1,15 +1,23 @@
 {
-	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "odottar",
-	"compatibility_date": "2026-07-07",
-	"observability": {
-		"enabled": true
-	},
-	"assets": {
-		"directory": ".",
-		"not_found_handling": "single-page-application"
-	},
-	"compatibility_flags": [
-		"nodejs_compat"
-	]
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "odottar",
+  "compatibility_date": "2026-07-07",
+  "main": "worker.js",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application"
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "LIKES",
+      "id": "7131325c9078400187c550c329f99880"
+    }
+  ]
 }
