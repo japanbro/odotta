@@ -853,26 +853,25 @@ function renderPage(name){
       <div class="pdate">${longDate(e)}</div>
     </div>
     <div class="psec">概要</div>
-    <div class="pnote">${summaryVal}</div>
+    <div class="pnote">${summaryVal||`<span style="color:var(--sub)">情報募集中（分かる方は教えてください）</span>`}</div>
     <div class="psec">開催情報</div>
     <div class="pcard">
       <div class="pitem"><span class="pl">開催時間</span><span class="pv">${timeVal}</span></div>
       <div class="pitem"><span class="pl">会場</span><span class="pv">${e.venue}</span></div>
-      <div class="pitem"><span class="pl">最寄駅</span><span class="pv">${e.station}</span></div>
-      <div class="pitem"><span class="pl">エリア</span><span class="pv">${e.area}</span></div>
-      <div class="pitem"><span class="pl">規模</span><span class="pv">${e.scale}</span></div>
+      <div class="pitem"><span class="pl">エリア</span><span class="pv">${e.area} ${e.station}</span></div>
+      <div class="pitem"><span class="pl">規模</span><span class="pv">${e.scale||`<span style="color:var(--sub)">情報募集中</span>`}</span></div>
       <div class="pitem"><span class="pl">踊れる曲</span><span class="pv">${songVal}</span></div>
     </div>
     <div class="pacts">
       <div class="btn primary" onclick="shareSheet('${esc}')">友達を誘う</div>
       <button class="btn heartbtn ${liked?'on':''}" onclick="pageLike('${esc}')">${liked?'\u2665 行きたい済':'\u2661 行きたい'} ${likeCount(e)}</button>
     </div>
-    <a class="pofficial2" href="${e.site}" target="_blank" rel="noopener">運営・公式サイト</a>
+    <a class="pofficial2" href="${e.site}" target="_blank" rel="noopener">盆踊り実行委員会公式サイト</a>
     ${ADSENSE_CLIENT?`<div class="adslot"><ins class="adsbygoogle" style="display:block" data-ad-client="${ADSENSE_CLIENT}" data-ad-slot="${ADSENSE_SLOT}" data-ad-format="auto" data-full-width-responsive="true"></ins></div>`:'<div class="adph">広告スペース（AdSense）</div>'}
     <a class="formlink" href="${FORM_URL||'#'}" target="_blank" rel="noopener">この盆踊りの情報を提供・修正する</a>`;
   if(ADSENSE_CLIENT){try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(err){}}
 }
-function pageLike(name){if(!LIKED[name]){LIKED[name]=true;saveLikes();hitRemote(name);toast("行きたいに追加しました");}renderPage(name);}
+function pageLike(name){if(LIKED[name]){delete LIKED[name];saveLikes();toast("「行きたい」を取り消しました");}else{LIKED[name]=true;saveLikes();hitRemote(name);toast("行きたいに追加しました");}renderPage(name);}
 function pageDone(name){if(DONE[name])delete DONE[name];else DONE[name]={y:2026};saveDone();renderPage(name);}
 function route(){
   const pg=document.getElementById("page");
